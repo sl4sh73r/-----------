@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption Demo</title>
+</head>
+<body>
+    <h1>Encryption Demo</h1>
+    <form id="encryptionForm">
+        <label for="plaintext">Enter Text:</label>
+        <input type="text" id="plaintext" name="plaintext" required><br><br>
+        <label for="key">Enter Key:</label>
+        <input type="text" id="key" name="key" required><br><br>
+        <button type="submit">Encrypt</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('encryptionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/encrypt', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Encrypted Text: ' + data.encryptedText;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
