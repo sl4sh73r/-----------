@@ -1,23 +1,23 @@
+from struct import pack
 from Crypto.Cipher import Blowfish
 from Crypto.Protocol.KDF import PBKDF2
 from Crypto import Random
 import base64
 
-def encrypt(plaintext, key):
-    salt = Random.new().read(8)
-    derived_key = PBKDF2(key, salt, 64, 1000)
-    cipher = Blowfish.new(derived_key[:32], Blowfish.MODE_CBC, derived_key[32:])
-    padded_plaintext = _pad(plaintext.encode())
-    ciphertext = cipher.iv + cipher.encrypt(padded_plaintext)
-    return base64.b64encode(salt + ciphertext).decode()
+def pad(data):
+    # Blowfish cipher needs multiples of 8 for the data length
+    while len(data) % 8 != 0:
+        data += b'\0'
+    return data
 
-def _pad(data):
-    padding_length = 8 - (len(data) % 8)
-    padding = bytes([padding_length] * padding_length)
-    return data + padding
+def encrypt(data, key):
+    iv = Random.new().read(Blowfish.block_size)
+    cipher = Blowfish.new(key, Blowfish.MODE_CBC, iv)
+    encrypted_data = iv + cipher.encrypt(pad(data))
+    return base64.b64encode(encrypted_data)
 
 if __name__ == "__main__":
     plaintext = input("Enter the plaintext: ")
     key = input("Enter the key: ")
-    encrypted_text = encrypt(plaintext, key)
-    print("Encrypted text:", encrypted_text)
+    encrypted_text = encrypt(plaintext.encode(), key.encode())
+    print("Encrypted text:", encrypted_text.decode())

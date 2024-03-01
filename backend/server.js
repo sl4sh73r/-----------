@@ -29,10 +29,32 @@ app.post('/encrypt', (req, res) => {
       res.status(500).json({ error: 'An error occurred during encryption' });
       return;
     }
+
     res.json({ encryptedText: stdout.trim() });
   });
 });
 
+app.post('/decrypt', (req, res) => {
+  const { encryptedtext, decryptionkey } = req.body;
+
+  const command = `python3 algorithms/decrypt.py "${encryptedtext}" "${decryptionkey}"`;
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error: ${error.message}`);
+      res.status(500).json({ error: 'An error occurred during decryption' });
+      return;
+    }
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+      res.status(500).json({ error: 'An error occurred during decryption' });
+      return;
+    }
+
+    res.json({ decryptedText: stdout.trim() });
+  });
+});
+
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
