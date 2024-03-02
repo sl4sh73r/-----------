@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encryption Demo</title>
+    <title>Kunin-lab1</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -13,8 +13,19 @@
         <h1>Encryption Demo</h1>
         <form id="encryptionForm">
             <div class="form-group">
+                <label for="inputType">Choose input type:</label>
+                <select class="form-control" id="inputType" name="inputType" onchange="toggleInputType('encryption')">
+                  <option value="text">Text</option>
+                  <option value="file">File</option>
+                </select>
+            </div>
+            <div class="form-group" id="encryptionTextGroup" style="display: none;">
                 <label for="plaintext">Enter Text:</label>
-                <input type="text" class="form-control" id="plaintext" name="plaintext" required>
+                <input type="text" class="form-control" id="plaintext" name="plaintext">
+            </div>
+            <div class="form-group" id="encryptionFileGroup" style="display: none;">
+                <label for="file">Upload File:</label>
+                <input type="file" class="form-control-file" id="file" name="file">
             </div>
             <div class="form-group">
                 <label for="key">Enter Key:</label>
@@ -39,8 +50,19 @@
         <h1>Decryption Demo</h1>
         <form id="decryptionForm">
             <div class="form-group">
+                <label for="inputTypeDecryption">Choose input type:</label>
+                <select class="form-control" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
+                  <option value="text">Text</option>
+                  <option value="file">File</option>
+                </select>
+            </div>
+            <div class="form-group" id="decryptionTextGroup" style="display: none;">
                 <label for="encryptedtext">Enter Encrypted Text:</label>
-                <input type="text" class="form-control" id="encryptedtext" name="encryptedtext" required>
+                <input type="text" class="form-control" id="encryptedtext" name="encryptedtext">
+            </div>
+            <div class="form-group" id="decryptionFileGroup" style="display: none;">
+                <label for="fileDecryption">Upload File:</label>
+                <input type="file" class="form-control-file" id="fileDecryption" name="fileDecryption">
             </div>
             <div class="form-group">
                 <label for="decryptionkey">Enter Key:</label>
@@ -63,6 +85,13 @@
         </div>  
 
     <script>
+        function toggleInputType(formType) {
+            const inputType = document.getElementById(`inputType${formType.charAt(0).toUpperCase() + formType.slice(1)}`).value;
+            document.getElementById(`${formType}TextGroup`).style.display = inputType === 'text' ? 'block' : 'none';
+            document.getElementById(`${formType}FileGroup`).style.display = inputType === 'file' ? 'block' : 'none';
+        }
+
+        // Rest of your JavaScript code...
         document.getElementById('encryptionForm').addEventListener('submit', function(event) {
             event.preventDefault();
 

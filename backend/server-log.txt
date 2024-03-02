@@ -1,37 +1,25 @@
 Server is running at http://localhost:3000
-Server is running at http://localhost:3000
-Server is running at http://localhost:3000
+Error: Command failed: python3 algorithms/blowfish/encrypt.py "1234" "1234"
+Traceback (most recent call last):
+  File "V:\Project-programm\vscode-project\kunin\lab1\-----------\backend\algorithms\blowfish\encrypt.py", line 2, in <module>
+    from Crypto.Cipher import Blowfish
+ModuleNotFoundError: No module named 'Crypto'
+
 Error: Command failed: python3 algorithms/blowfish/decrypt.py "9955960FC85E5B2DF971E85342CC4A13" "1234"
 Traceback (most recent call last):
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/blowfish/decrypt.py", line 39, in <module>
-    print(decrypted_text.decode())
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0xbd in position 3: invalid start byte
+  File "V:\Project-programm\vscode-project\kunin\lab1\-----------\backend\algorithms\blowfish\decrypt.py", line 1, in <module>
+    from Crypto.Cipher import Blowfish
+ModuleNotFoundError: No module named 'Crypto'
 
 Server is running at http://localhost:3000
-Error: Command failed: python3 algorithms/blowfish/decrypt.py "9955960FC85E5B2DF971E85342CC4A13" "1234"
+Error: Command failed: python3 algorithms/blowfish/decrypt.py "EB17E60AF370E6436427881A2F99DB840CA30D43F684A4100F7FDFE5CA146A5034B15DC046EFDB6681FD8DAAD39B951089EE7EB027D774B9704E57702D6C634F" "1234"
 Traceback (most recent call last):
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/blowfish/decrypt.py", line 39, in <module>
+  File "V:\Project-programm\vscode-project\kunin\lab1\-----------\backend\algorithms\blowfish\decrypt.py", line 39, in <module>
     print(decrypted_text.decode())
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0xbd in position 3: invalid start byte
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf9 in position 1: invalid start byte
 
 Server is running at http://localhost:3000
 Server is running at http://localhost:3000
-Error: Command failed: python3 algorithms/Grasshopper/decrypt.py "9iJvcrXmM4xnkBNNH9eT8pW3KCrbQ5ewUaUdBaHlTOOOg5HzILQTmcKKdJ92YRGc2XgQqeqn3K17N+cLsTl3/8g56vv6bAiX" "123%5512"
-Traceback (most recent call last):
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/Grasshopper/decrypt.py", line 17, in <module>
-    decrypted_text = decrypt(data, password)
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/Grasshopper/decrypt.py", line 6, in decrypt
-    decrypted_text = gh.decrypt(text, K)
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/Grasshopper/main.py", line 214, in decrypt
-    textDecrypted = S(L(X(textDecrypted, K[i]), 'reverse'), 'reverse')
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/Grasshopper/main.py", line 5, in xor_func
-    input1AsInteger = int(input1AsString, in_code)
-ValueError: invalid literal for int() with base 16: '9iJvcrXmM4xnkBNNH9eT8pW3KCrbQ5ew'
-
-Error: Command failed: python3 algorithms/blowfish/decrypt.py "9iJvcrXmM4xnkBNNH9eT8pW3KCrbQ5ewUaUdBaHlTOOOg5HzILQTmcKKdJ92YRGc2XgQqeqn3K17N+cLsTl3/8g56vv6bAiX" "123%5512"
-Traceback (most recent call last):
-  File "/Users/sl4sh73r/Desktop/Deleted/кунин/Лаба реворк/backend/algorithms/blowfish/decrypt.py", line 39, in <module>
-    print(decrypted_text.decode())
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf5 in position 0: invalid start byte
-
+Server is running at http://localhost:3000
+Server is running at http://localhost:3000
 Server is running at http://localhost:3000
