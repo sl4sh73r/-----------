@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { exec } = require('child_process');
@@ -5,6 +6,16 @@ const path = require('path');
 
 const app = express();
 const port = 3000;
+
+const fs = require('fs');
+
+function logToFile(message) {
+  fs.appendFile('server-log.txt', message + '\n', err => {
+    if (err) {
+      console.error('Failed to write to log file:', err);
+    }
+  });
+}
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -14,18 +25,17 @@ app.get('/', (req, res) => {
 });
 
 app.post('/encrypt', (req, res) => {
-  const { plaintext, key } = req.body;
-
-  const command = `python3 algorithms/encrypt.py "${plaintext}" "${key}"`;
-
+  const { plaintext, key, algorithm } = req.body;
+  const command = `python3 algorithms/${algorithm}/encrypt.py "${plaintext}" "${key}"`;
+  console.log(algorithm,plaintext,key)
   exec(command, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error: ${error.message}`);
+      logToFile(`Error: ${error.message}`);
       res.status(500).json({ error: 'An error occurred during encryption' });
       return;
     }
     if (stderr) {
-      console.error(`stderr: ${stderr}`);
+      logToFile(`stderr: ${stderr}`);
       res.status(500).json({ error: 'An error occurred during encryption' });
       return;
     }
@@ -35,18 +45,17 @@ app.post('/encrypt', (req, res) => {
 });
 
 app.post('/decrypt', (req, res) => {
-  const { encryptedtext, decryptionkey } = req.body;
-
-  const command = `python3 algorithms/decrypt.py "${encryptedtext}" "${decryptionkey}"`;
-
+  const { encryptedtext, decryptionkey: key, decryptionalgorithm: algorithm } = req.body;
+  const command = `python3 algorithms/${algorithm}/decrypt.py "${encryptedtext}" "${key}"`;
+  
   exec(command, (error, stdout, stderr) => {
     if (error) {
-      console.error(`Error: ${error.message}`);
+      logToFile(`Error: ${error.message}`);
       res.status(500).json({ error: 'An error occurred during decryption' });
       return;
     }
     if (stderr) {
-      console.error(`stderr: ${stderr}`);
+      logToFile(`stderr: ${stderr}`);
       res.status(500).json({ error: 'An error occurred during decryption' });
       return;
     }
@@ -56,5 +65,7 @@ app.post('/decrypt', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
+  logToFile(`Server is running at http://localhost:${port}`);
 });
+
