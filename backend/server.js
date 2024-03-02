@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 app.post('/encrypt', (req, res) => {
   const { plaintext, key, algorithm } = req.body;
   const command = `python3 algorithms/${algorithm}/encrypt.py "${plaintext}" "${key}"`;
-  console.log(algorithm,plaintext,key)
+  // console.log(algorithm,plaintext,key)
   exec(command, (error, stdout, stderr) => {
     if (error) {
       logToFile(`Error: ${error.message}`);
@@ -47,7 +47,7 @@ app.post('/encrypt', (req, res) => {
 app.post('/decrypt', (req, res) => {
   const { encryptedtext, decryptionkey: key, decryptionalgorithm: algorithm } = req.body;
   const command = `python3 algorithms/${algorithm}/decrypt.py "${encryptedtext}" "${key}"`;
-  
+//   console.log(algorithm,encryptedtext,key)
   exec(command, (error, stdout, stderr) => {
     if (error) {
       logToFile(`Error: ${error.message}`);

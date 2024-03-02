@@ -24,13 +24,17 @@
                 <label for="algorithm">Choose an algorithm:</label>
                 <select class="form-control" id="algorithm" name="algorithm">
                   <option value="blowfish">Blowfish</option>
+                  <option value="Grasshopper">Grasshopper</option>
                   <option value="aes">AES</option>
                   <!-- Add more options as needed -->
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Encrypt</button>
         </form>
-        <div id="encryptionResult"></div>
+        <div id="encryptionResult" class="alert alert-info" role="alert" style="display: none;">
+            <span id="encryptionResultText"></span>
+            <button class="btn btn-secondary btn-sm" id="copyEncryptionResult">Copy</button>
+        </div>
 
         <h1>Decryption Demo</h1>
         <form id="decryptionForm">
@@ -46,14 +50,17 @@
                 <label for="decryptionalgorithm">Choose an algorithm:</label>
                 <select class="form-control" id="decryptionalgorithm" name="decryptionalgorithm">
                   <option value="blowfish">Blowfish</option>
+                  <option value="Grasshopper">Grasshopper</option>
                   <option value="aes">AES</option>
                   <!-- Add more options as needed -->
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Decrypt</button>
         </form>
-        <div id="decryptionResult"></div>
-    </div>
+        <div id="decryptionResult" class="alert alert-info" role="alert" style="display: none;">
+            <span id="decryptionResultText"></span>
+            <button class="btn btn-secondary btn-sm" id="copyDecryptionResult">Copy</button>
+        </div>  
 
     <script>
         document.getElementById('encryptionForm').addEventListener('submit', function(event) {
@@ -71,7 +78,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('encryptionResult').textContent = data.encryptedText;
+                const encryptionResult = document.getElementById('encryptionResult');
+                const encryptionResultText = document.getElementById('encryptionResultText');
+                encryptionResultText.textContent = data.encryptedText;
+                encryptionResult.style.display = 'block';
             });
         });
 
@@ -90,8 +100,21 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('decryptionResult').textContent = data.decryptedText;
+                const decryptionResult = document.getElementById('decryptionResult');
+                const decryptionResultText = document.getElementById('decryptionResultText');
+                decryptionResultText.textContent = data.decryptedText;
+                decryptionResult.style.display = 'block';
             });
+        });
+
+        document.getElementById('copyEncryptionResult').addEventListener('click', function() {
+            const text = document.getElementById('encryptionResultText').textContent;
+            navigator.clipboard.writeText(text);
+        });
+
+        document.getElementById('copyDecryptionResult').addEventListener('click', function() {
+            const text = document.getElementById('decryptionResultText').textContent;
+            navigator.clipboard.writeText(text);
         });
     </script>
 </body>
