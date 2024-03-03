@@ -32,10 +32,15 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python decrypt.py <encrypted_text> <key>")
     else:
-        encrypted_text = sys.argv[1]
+        encrypted_text = sys.argv[1].encode()
         key = sys.argv[2].encode()
+        
         decrypted_text = decrypt(encrypted_text, key)
         if decrypted_text:
-            print(decrypted_text.decode())
+            try:
+                print(decrypted_text.decode())
+            except UnicodeDecodeError:
+                print("\nError: Decrypted text could not be decoded as UTF-8.\nDisplaying as hex:")
+                print(decrypted_text.hex())
         else:
             print("Decryption failed.")

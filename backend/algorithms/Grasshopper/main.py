@@ -130,7 +130,12 @@ L = linear_transformation # линейное преобразование
 
 # turn text from utf8 to hex
 def utf8ToHex(text):
-    text = binascii.hexlify(text.encode('utf8')).decode('utf8')
+    if isinstance(text, str):
+        text = binascii.hexlify(text.encode('utf8')).decode('utf8')
+    elif isinstance(text, bytes):
+        text = binascii.hexlify(text).decode('utf8')
+    else:
+        raise TypeError("text must be a string or bytes")
     return text
 
 def transformKey(key):

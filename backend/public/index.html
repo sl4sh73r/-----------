@@ -6,85 +6,106 @@
     <title>Kunin-lab1</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Encryption Demo</h1>
-        <form id="encryptionForm" enctype='multipart/form-data'>
-            <div class="form-group">
-                <label for="inputTypeEncryption">Choose input type:</label>
-                <select class="form-control" id="inputTypeEncryption" name="inputTypeEncryption" onchange="toggleInputType('encryption')">
-                  <option value="text">Text</option>
-                  <option value="file">File</option>
-                </select>
-            </div>
-            <div class="form-group" id="encryptionTextGroup" style="display: none;">
-                <label for="plaintext">Enter Text:</label>
-                <input type="text" class="form-control" id="plaintext" name="plaintext">
-            </div>
-            <div class="form-group" id="encryptionFileGroup" style="display: none;">
-                <label for="fileEncryption">Upload File:</label>
-                <input type="file" class="form-control-file" id="fileEncryption" name="fileEncryption">
-            </div>
-            <div class="form-group">
-                <label for="key">Enter Key:</label>
-                <input type="text" class="form-control" id="key" name="key" required>
-            </div>
-            <div class="form-group">
-                <label for="algorithm">Choose an algorithm:</label>
-                <select class="form-control" id="algorithm" name="algorithm">
-                  <option value="blowfish">Blowfish</option>
-                  <option value="Grasshopper">Grasshopper</option>
-                  <option value="aes">AES</option>
-                  <!-- Add more options as needed -->
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Encrypt</button>
-        </form>
-        <div id="encryptionResult" class="alert alert-info" role="alert" style="display: none;">
-            <span id="encryptionResultText"></span>
-            <button class="btn btn-secondary btn-sm" id="copyEncryptionResult">Copy</button>
+    <audio src="https://storage1.lightaudio.ru/dm/39922426/51eca900/One%20Piece%20OST%20—%20The%20Very%20Very%20Very%20Strongest.mp3" autoplay>
+    </audio>
+    <div class="neon-border">
+    
+        <div class="super_style">
         </div>
+        <div class="container_main">
+            <div class="container_1">
+                <h1 style="text-align: center;">Encryption Demo</h1>
+                <form id="encryptionForm" enctype='multipart/form-data'>
+                    <div class="form-group">
+                        <label for="inputTypeEncryption">Choose input type:</label>
+                        <select class="form-control" id="inputTypeEncryption" name="inputTypeEncryption" onchange="toggleInputType('encryption')">
+                        <option disabled selected value> -- Выберите вариант -- </option>    
+                        <option value="text">Text</option>
+                        <option value="file">File</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="encryptionTextGroup" style="display: none;">
+                        <label for="plaintext">Enter Text:</label>
+                        <input type="text" class="form-control" id="plaintext" name="plaintext">
+                    </div>
+                    <div class="form-group" id="encryptionFileGroup" style="display: none;">
+                        <label for="fileEncryption">Upload File:</label>
+                        <input type="file" class="form-control-file" id="fileEncryption" name="fileEncryption">
+                    </div>
+                    <div class="form-group">
+                        <label for="key">Enter Key:</label>
+                        <input type="text" class="form-control" id="key" name="key" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="algorithm">Choose an algorithm:</label>
+                        <select class="form-control" id="algorithm" name="algorithm">
+                        <option value="blowfish">Blowfish</option>
+                        <option value="Grasshopper">Grasshopper</option>
+                        <option value="aes">AES</option>
+                        <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <button type="submit" class="best_button">Encrypt</button>
+                </form>
+                <div id="encryptionResult" class="alert alert-info" role="alert" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="encryptionResultText"></span>
+                        <button class="btn btn-light-primary copy-btn" id="copyEncryptionResult">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        <h1>Decryption Demo</h1>
-        <form id="decryptionForm">
-            <div class="form-group">
-                <label for="inputTypeDecryption">Choose input type:</label>
-                <select class="form-control" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
-                  <option value="text">Text</option>
-                  <option value="file">File</option>
-                </select>
-            </div>
-            <div class="form-group" id="decryptionTextGroup" style="display: none;">
-                <label for="encryptedtext">Enter Encrypted Text:</label>
-                <input type="text" class="form-control" id="encryptedtext" name="encryptedtext">
-            </div>
-            <div class="form-group" id="decryptionFileGroup" style="display: none;">
-                <label for="fileDecryption">Upload File:</label>
-                <input type="file" class="form-control-file" id="fileDecryption" name="fileDecryption">
-            </div>
-            <div class="form-group">
-                <label for="decryptionkey">Enter Key:</label>
-                <input type="text" class="form-control" id="decryptionkey" name="decryptionkey" required>
-            </div>
-            <div class="form-group">
-                <label for="decryptionalgorithm">Choose an algorithm:</label>
-                <select class="form-control" id="decryptionalgorithm" name="decryptionalgorithm">
-                  <option value="blowfish">Blowfish</option>
-                  <option value="Grasshopper">Grasshopper</option>
-                  <option value="aes">AES</option>
-                  <!-- Add more options as needed -->
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Decrypt</button>
-        </form>
-        <div id="decryptionResult" class="alert alert-info" role="alert" style="display: none;">
-            <span id="decryptionResultText"></span>
-            <button class="btn btn-secondary btn-sm" id="copyDecryptionResult">Copy</button>
-        </div>  
-
+            <div class="container_2">
+                <h1 style="text-align: center;">Decryption Demo</h1>
+                <form id="decryptionForm">
+                    <div class="form-group">
+                        <label for="inputTypeDecryption">Choose input type:</label>
+                        <select class="form-control" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
+                        <option disabled selected value> -- Выберите вариант -- </option>
+                        <option value="text">Text</option>
+                        <option value="file">File</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="decryptionTextGroup" style="display: none;">
+                        <label for="encryptedtext">Enter Encrypted Text:</label>
+                        <input type="text" class="form-control" id="encryptedtext" name="encryptedtext">
+                    </div>
+                    <div class="form-group" id="decryptionFileGroup" style="display: none;">
+                        <label for="fileDecryption">Upload File:</label>
+                        <input type="file" class="form-control-file" id="fileDecryption" name="fileDecryption">
+                    </div>
+                    <div class="form-group">
+                        <label for="decryptionkey">Enter Key:</label>
+                        <input type="text" class="form-control" id="decryptionkey" name="decryptionkey" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="decryptionalgorithm">Choose an algorithm:</label>
+                        <select class="form-control" id="decryptionalgorithm" name="decryptionalgorithm">
+                        <option value="blowfish">Blowfish</option>
+                        <option value="Grasshopper">Grasshopper</option>
+                        <option value="aes">AES</option>
+                        <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <button type="submit" class="best_button">Decrypt</button>
+                </form>
+                <div id="decryptionResult" class="alert alert-info" role="alert" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="decryptionResultText"></span>
+                        <button class="btn btn-light-primary copy-btn" id="copyDecryptionResult">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+    </div>
     <script>
         function toggleInputType(formType) {
             const inputType = document.getElementById(`inputType${formType.charAt(0).toUpperCase() + formType.slice(1)}`).value;
@@ -92,15 +113,17 @@
             document.getElementById(`${formType}FileGroup`).style.display = inputType === 'file' ? 'block' : 'none';
         }
 
-        // Rest of your JavaScript code...
+        
         document.getElementById('encryptionForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = new FormData(this);
             const inputTypeEncryption = formData.get('inputTypeEncryption'); 
             const plaintext = formData.get('plaintext');
-            
             if (inputTypeEncryption === 'file') {
+                const encryptionResult = document.getElementById('encryptionResult');
+                encryptionResult.style.display = 'none';
+
                 fetch('/upload-Encryption', {
                     method: 'POST',
                     body: formData
@@ -124,45 +147,60 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    const encryptionResult = document.getElementById('encryptionResult');
-                    const encryptionResultText = document.getElementById('encryptionResultText');
-                    encryptionResultText.textContent = data.encryptedText;
-                    encryptionResult.style.display = 'block';
-
                     // Здесь мы добавляем вызов fetch к эндпоинту /download-file/:fileName
                     return fetch(`/download-file-Encryption/${data.filename}`);
                 })
                 .then(response => response.blob())
+
                 .then(blob => {
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
+
+                    // Получаем файл из формы
+                    const file = formData.get('fileEncryption'); // Используем 'fileEncryption' как имя поля ввода файла // Замените 'fileInputFieldName' на имя поля ввода файла в вашей форме
+                    const originalFileName = file.name; // Получаем имя исходного файла
+                    const algorithm = formData.get('algorithm');
                     a.style.display = 'none';
                     a.href = url;
-                    a.download = "file.enc"; // Имя файла для скачивания
+                    a.download = originalFileName+"_"+algorithm+".enc"; // Имя файла для скачивания
                     document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
+
+                    // Создаем кнопку для скачивания файла
+                    let downloadEncryptButton = document.getElementById('downloadEncryptButton');
+                    if (!downloadEncryptButton) {
+                        downloadEncryptButton = document.createElement('button');
+                        downloadEncryptButton.id = 'downloadEncryptButton';
+                        downloadEncryptButton.textContent = 'DownloadCrypt';
+                        document.body.appendChild(downloadEncryptButton);
+                    }
+                    downloadEncryptButton.onclick = function() {
+                        a.click();
+                    };
+                    document.body.appendChild(downloadEncryptButton);
                 })
+
+                
+
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
                 });
             } else {// Если тип ввода - это текст, сразу шифруем
-        const key = formData.get('key');
-        const algorithm = formData.get('algorithm');
-        const plaintext = formData.get('plaintext');
+                const key = formData.get('key');
+                const algorithm = formData.get('algorithm');
+                const plaintext = formData.get('plaintext');
 
-        fetch('/encrypt', {
-            method: 'POST',
-            body: JSON.stringify({ plaintext, key, algorithm, inputTypeEncryption }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const encryptionResult = document.getElementById('encryptionResult');
-            const encryptionResultText = document.getElementById('encryptionResultText');
-            encryptionResultText.textContent = data.encryptedText;
-            encryptionResult.style.display = 'block';
-        })
+                fetch('/encrypt', {
+                    method: 'POST',
+                    body: JSON.stringify({ plaintext, key, algorithm, inputTypeEncryption }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const encryptionResult = document.getElementById('encryptionResult');
+                    const encryptionResultText = document.getElementById('encryptionResultText');
+                    encryptionResultText.textContent = data.encryptedText;
+                    encryptionResult.style.display = 'block';
+                })
         .catch(error => {
             console.error('Произошла ошибка:', error);
         });}
@@ -173,8 +211,12 @@
 
             const formData = new FormData(this);
             const inputTypeDecryption = formData.get('inputTypeDecryption'); 
-            const encryptedtext = formData.get('encryptedtext');
+            // const encryptedtext = formData.get('encryptedtext');
             if (inputTypeDecryption === 'file') {
+                // Скрываем результат дешифрования текста
+                const decryptionResult = document.getElementById('decryptionResult');
+                decryptionResult.style.display = 'none';
+
                 fetch('/upload-Decryption', {
                     method: 'POST',
                     body: formData
@@ -197,28 +239,45 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    const decryptionResult = document.getElementById('decryptionResult');
-                    const decryptionResultText = document.getElementById('decryptionResultText');
-                    decryptionResultText.textContent = data.decryptedText;
-                    decryptionResult.style.display = 'block';
+                    // const decryptionResult = document.getElementById('decryptionResult');
+                    // const decryptionResultText = document.getElementById('decryptionResultText');
+                    // decryptionResultText.textContent = data.decryptedText;
+                    // decryptionResult.style.display = 'block';
 
+                     // Здесь мы добавляем вызов fetch к эндпоинту /download-file/:fileName
                     return fetch(`/download-file-Decryption/${data.filename}`);
                 })
                 .then(response => response.blob())
                 .then(blob => {
+                    const decryptionalgorithm = formData.get('decryptionalgorithm');
+                    const file = formData.get('fileDecryption'); // Получаем файл из formData
+                    let originalFileName = file.name;
+                    originalFileName = originalFileName.replace("_"+decryptionalgorithm, "");
+                    originalFileName = originalFileName.replace(".enc", "");
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.style.display = 'none';
                     a.href = url;
-                    a.download = "file.txt"; // Имя файла для скачивания
+                    a.download = originalFileName; // Имя файла для скачивания
                     document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
+
+                    // Создаем кнопку для скачивания файла
+                let downloadDecryptButton = document.getElementById('downloadDecryptButton');
+                    if (!downloadDecryptButton) {
+                        downloadDecryptButton = document.createElement('button');
+                        downloadDecryptButton.id = 'downloadDecryptButton';
+                        downloadDecryptButton.textContent = 'DownloadDecrypt';
+                        document.body.appendChild(downloadDecryptButton);
+                    }
+                    downloadDecryptButton.onclick = function() {
+                        a.click();
+                    };
+                    document.body.appendChild(downloadDecryptButton);
                 })
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
                 });
-            }else{
+            }else{ //Если тип ввода - это текст, сразу шифруем
                 const decryptionkey = formData.get('decryptionkey');
                 const decryptionalgorithm = formData.get('decryptionalgorithm');
                 const encryptedtext = formData.get('encryptedtext');
@@ -240,6 +299,64 @@
                 });
             }
         });
+        
+        
+            document.addEventListener('DOMContentLoaded', function() {
+                const encryptionTarget = document.getElementById('encryptionResultText');
+                const encryptionButton = document.getElementById('copyEncryptionResult');
+                const decryptionTarget = document.getElementById('decryptionResultText');
+                const decryptionButton = document.getElementById('copyDecryptionResult');
+
+                // Init clipboard for encryption result
+                var clipboardEncryption = new ClipboardJS(encryptionButton, {
+                    text: function() {
+                        return encryptionTarget.innerText;
+                    }
+                });
+
+                // Success action handler for encryption result
+                clipboardEncryption.on('success', function(e) {
+                    const currentLabel = encryptionButton.innerHTML;
+
+                    // Exit label update when already in progress
+                    if(encryptionButton.innerHTML === 'Copied!'){
+                        return;
+                    }
+
+                    // Update button label
+                    encryptionButton.innerHTML = 'Copied!';
+
+                    // Revert button label after 3 seconds
+                    setTimeout(function(){
+                        encryptionButton.innerHTML = currentLabel;
+                    }, 3000)
+                });
+
+                // Init clipboard for decryption result
+                var clipboardDecryption = new ClipboardJS(decryptionButton, {
+                    text: function() {
+                        return decryptionTarget.innerText;
+                    }
+                });
+
+                // Success action handler for decryption result
+                clipboardDecryption.on('success', function(e) {
+                    const currentLabel = decryptionButton.innerHTML;
+
+                    // Exit label update when already in progress
+                    if(decryptionButton.innerHTML === 'Copied!'){
+                        return;
+                    }
+
+                    // Update button label
+                    decryptionButton.innerHTML = 'Copied!';
+
+                    // Revert button label after 3 seconds
+                    setTimeout(function(){
+                        decryptionButton.innerHTML = currentLabel;
+                    }, 3000)
+                });
+            });
     </script>
 </body>
 </html>

@@ -5,12 +5,24 @@ const path = require('path');
 // console.log(path.join(__dirname, 'public', 'index.html'),"FilePath");
 const fs = require('fs');
 const multer = require('multer');
-const upload = multer({ dest: './public/data/uploads/' });
+
 
 const app = express();
 const port = 3000;
 
-debugger
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, 'uploads')) // Сохраняем файлы в папку 'uploads' в корневой директории проекта
+  },
+  filename: function (req, file, cb) {
+    // Заменяем все не-ASCII символы на "_"
+    const safeFilename = file.originalname.replace(/[^\x20-\x7E]/g, "_");
+    cb(null, safeFilename)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 
 function logToFile(message) {
@@ -30,18 +42,18 @@ app.get('/', (req, res) => {
 
 
 
+
 app.post('/check-input-type-Encryption', function (req, res) {
   const { inputTypeEncryption } = req.body;
-  console.log(inputTypeEncryption)
+  // console.log(inputTypeEncryption)
   const isFile = inputTypeEncryption === 'file';
-  console.log(isFile);
+  // console.log(isFile);
   res.json({ isFile });
 });
 
 app.post('/upload-Encryption', upload.single('fileEncryption'), function (req, res) {
-  // console.log(req.file, req.file.path);
-  res.json({ status: 'File uploaded', filePath: req.file.path });
-  //console.log("req.file: ",req.file);
+  const relativePath = path.relative(__dirname, req.file.path);
+  res.json({ status: 'File uploaded', filePath: relativePath, filename: req.file.originalname });
 });
 
 
@@ -49,6 +61,7 @@ app.post('/encrypt', function (req, res) {
     const { plaintext, key, algorithm, inputTypeEncryption, filePath} = req.body;
     const isFile = inputTypeEncryption === 'file';
     const fileOrPlaintext = isFile ? filePath : plaintext;
+    console.log("python3 algorithms/",algorithm,isFile ? '/FileCrypt' : '',fileOrPlaintext,key);
     const command = `python3 algorithms/${algorithm}${isFile ? '/FileCrypt' : ''}/encrypt.py "${fileOrPlaintext}" "${key}"`;
 
     executePythonScript(command)
@@ -101,27 +114,33 @@ function executePythonScript(command) {
 }
 
 
-
 app.post('/check-input-type-Decryption', function (req, res) {
   const { inputTypeDecryption } = req.body;
-  console.log(inputTypeDecryption)
   const isFile = inputTypeDecryption === 'file';
-  console.log(isFile);
   res.json({ isFile });
 });
 
+
 app.post('/upload-Decryption', upload.single('fileDecryption'), function (req, res) {
-  res.json({ status: 'File uploaded', filePath: req.file.path });
+  const relativePath = path.relative(__dirname, req.file.path);
+  console.log("Путь к файлу:",req.file);
+  // res.json({ status: 'File uploaded', filePath: req.file.path });
+  res.json({ status: 'File uploaded', filePath: relativePath, filename: req.file.originalname });
 });
 
 app.post('/decrypt', function (req, res) {
-  const { encryptedtext: ciphertext, decryptionkey: key, decryptionalgorithm: algorithm, inputTypeEncryption, filePath } = req.body;
-  const isFile = inputTypeEncryption === 'file';
+  const { encryptedtext: ciphertext, decryptionkey: key, decryptionalgorithm: algorithm, inputTypeDecryption, filePath } = req.body;
+  //console.log("Decrypt-body info: ",req.body)
+  const isFile = inputTypeDecryption === 'file';
+  //console.log(isFile);
   const fileOrCiphertext = isFile ? filePath : ciphertext;
+  //console.log("python3 algorithms/",algorithm,isFile ? '/FileCrypt' : '',"/decrypt.py",fileOrCiphertext,key);
   const command = `python3 algorithms/${algorithm}${isFile ? '/FileCrypt' : ''}/decrypt.py "${fileOrCiphertext}" "${key}"`;
+  //console.log("Command to execute: ", command); // Логируем команду, которую собираемся выполнить
 
   executePythonScript(command)
   .then(output => {
+    //console.log("Output from python script: ", output); // Логируем вывод из скрипта Python
       if (isFile) {
           // Если ввод - это файл, возвращаем имя файла
           res.json({ filename: output });

@@ -1,0 +1,114 @@
+.container_1 {
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+} 
+
+.container_2 {
+    width: 40%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.container_main {
+    margin-top: 5%;
+    display: flex;
+    margin-left: 0%;
+}
+
+.super_style {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    box-shadow:
+    inset 0 0 50px #fff,
+    inset 20px 0 80px #f0f,
+    inset -20px 0 80px #0ff,
+    inset 20px 0 300px #f0f,
+    inset -20px 0 300px #0ff,
+    0 0 50px #fff,
+    -10px 0 80px #f0f,
+    10px 0 80px #0ff;
+}
+
+.copy-btn {
+  font-size: 1.6em;
+  z-index: 100;
+  cursor: pointer;
+  font-weight: 100;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.copy-btn:hover {
+  transition: all .8s ease-in-out;
+  color: transparent;
+  background-image: linear-gradient(#f0f, #0ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+.copy-btn svg {
+  width: 1em;
+  height: 1em;
+}
+
+.best_button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #1fd1f9;
+  background-image: linear-gradient(315deg, #1fd1f9 0%, #b621fe 74%);
+  transition: 500ms;
+  position: relative;
+}
+
+button:before, button:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 75px;
+  height: 0px; 
+  background: transparent;
+  transition: 500ms;
+  border: none;
+}
+
+button:before {
+  transform: translateX(-50px) translateY(27px);
+    box-shadow: 5px 5px 16px #ca61ff;
+}
+
+button:after {
+  transform: translateX(-25px) translateY(27px);
+  box-shadow: -5px 5px 16px #1fd1f9;
+}
+
+button:hover:before, button:hover:after {
+  height: 5px;
+}
+
+button:hover {
+  box-shadow: inset 0px 5px 10px rgba(255,255,255,0.4);
+}
+
+button:focus {
+  outline: none;
+}
