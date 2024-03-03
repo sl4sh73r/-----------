@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunin-lab1</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -11,10 +12,10 @@
 <body>
     <div class="container">
         <h1>Encryption Demo</h1>
-        <form id="encryptionForm">
+        <form id="encryptionForm" enctype='multipart/form-data'>
             <div class="form-group">
-                <label for="inputType">Choose input type:</label>
-                <select class="form-control" id="inputType" name="inputType" onchange="toggleInputType('encryption')">
+                <label for="inputTypeEncryption">Choose input type:</label>
+                <select class="form-control" id="inputTypeEncryption" name="inputTypeEncryption" onchange="toggleInputType('encryption')">
                   <option value="text">Text</option>
                   <option value="file">File</option>
                 </select>
@@ -24,8 +25,8 @@
                 <input type="text" class="form-control" id="plaintext" name="plaintext">
             </div>
             <div class="form-group" id="encryptionFileGroup" style="display: none;">
-                <label for="file">Upload File:</label>
-                <input type="file" class="form-control-file" id="file" name="file">
+                <label for="fileEncryption">Upload File:</label>
+                <input type="file" class="form-control-file" id="fileEncryption" name="fileEncryption">
             </div>
             <div class="form-group">
                 <label for="key">Enter Key:</label>
@@ -96,54 +97,148 @@
             event.preventDefault();
 
             const formData = new FormData(this);
+            const inputTypeEncryption = formData.get('inputTypeEncryption'); 
             const plaintext = formData.get('plaintext');
-            const key = formData.get('key');
-            const algorithm = formData.get('algorithm');
+            
+            if (inputTypeEncryption === 'file') {
+                fetch('/upload-Encryption', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка загрузки файла');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    
+                    const key = formData.get('key');
+                    const algorithm = formData.get('algorithm');
 
-            fetch('/encrypt', {
-                method: 'POST',
-                body: JSON.stringify({ plaintext, key, algorithm }),
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const encryptionResult = document.getElementById('encryptionResult');
-                const encryptionResultText = document.getElementById('encryptionResultText');
-                encryptionResultText.textContent = data.encryptedText;
-                encryptionResult.style.display = 'block';
-            });
+                    return fetch('/encrypt', {
+                        method: 'POST',
+                        body: JSON.stringify({ plaintext, key, algorithm,inputTypeEncryption,filePath: data.filePath }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const encryptionResult = document.getElementById('encryptionResult');
+                    const encryptionResultText = document.getElementById('encryptionResultText');
+                    encryptionResultText.textContent = data.encryptedText;
+                    encryptionResult.style.display = 'block';
+
+                    // Здесь мы добавляем вызов fetch к эндпоинту /download-file/:fileName
+                    return fetch(`/download-file-Encryption/${data.filename}`);
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "file.enc"; // Имя файла для скачивания
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Произошла ошибка:', error);
+                });
+            } else {// Если тип ввода - это текст, сразу шифруем
+        const key = formData.get('key');
+        const algorithm = formData.get('algorithm');
+        const plaintext = formData.get('plaintext');
+
+        fetch('/encrypt', {
+            method: 'POST',
+            body: JSON.stringify({ plaintext, key, algorithm, inputTypeEncryption }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const encryptionResult = document.getElementById('encryptionResult');
+            const encryptionResultText = document.getElementById('encryptionResultText');
+            encryptionResultText.textContent = data.encryptedText;
+            encryptionResult.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Произошла ошибка:', error);
+        });}
         });
 
         document.getElementById('decryptionForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const formData = new FormData(this);
+            const inputTypeDecryption = formData.get('inputTypeDecryption'); 
             const encryptedtext = formData.get('encryptedtext');
-            const decryptionkey = formData.get('decryptionkey');
-            const decryptionalgorithm = formData.get('decryptionalgorithm');
+            if (inputTypeDecryption === 'file') {
+                fetch('/upload-Decryption', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка загрузки файла');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const decryptionkey = formData.get('decryptionkey');
+                    const decryptionalgorithm = formData.get('decryptionalgorithm');
 
-            fetch('/decrypt', {
-                method: 'POST',
-                body: JSON.stringify({ encryptedtext, decryptionkey, decryptionalgorithm }),
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const decryptionResult = document.getElementById('decryptionResult');
-                const decryptionResultText = document.getElementById('decryptionResultText');
-                decryptionResultText.textContent = data.decryptedText;
-                decryptionResult.style.display = 'block';
-            });
-        });
+                    return fetch('/decrypt', {
+                        method: 'POST',
+                        body: JSON.stringify({ encryptedtext, decryptionkey, decryptionalgorithm,inputTypeDecryption,filePath: data.filePath }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const decryptionResult = document.getElementById('decryptionResult');
+                    const decryptionResultText = document.getElementById('decryptionResultText');
+                    decryptionResultText.textContent = data.decryptedText;
+                    decryptionResult.style.display = 'block';
 
-        document.getElementById('copyEncryptionResult').addEventListener('click', function() {
-            const text = document.getElementById('encryptionResultText').textContent;
-            navigator.clipboard.writeText(text);
-        });
+                    return fetch(`/download-file-Decryption/${data.filename}`);
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = "file.txt"; // Имя файла для скачивания
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Произошла ошибка:', error);
+                });
+            }else{
+                const decryptionkey = formData.get('decryptionkey');
+                const decryptionalgorithm = formData.get('decryptionalgorithm');
+                const encryptedtext = formData.get('encryptedtext');
 
-        document.getElementById('copyDecryptionResult').addEventListener('click', function() {
-            const text = document.getElementById('decryptionResultText').textContent;
-            navigator.clipboard.writeText(text);
+                fetch('/decrypt', {
+                    method: 'POST',
+                    body: JSON.stringify({ encryptedtext, decryptionkey, decryptionalgorithm, inputTypeDecryption }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const decryptionResult = document.getElementById('decryptionResult');
+                    const decryptionResultText = document.getElementById('decryptionResultText');
+                    decryptionResultText.textContent = data.decryptedText;
+                    decryptionResult.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Произошла ошибка:', error);
+                });
+            }
         });
     </script>
 </body>

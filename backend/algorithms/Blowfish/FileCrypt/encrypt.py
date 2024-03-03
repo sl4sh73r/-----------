@@ -1,6 +1,7 @@
 from Crypto.Cipher import Blowfish
 from Crypto import Random
 import os
+import sys
 
 def encrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
     if not out_filename:
@@ -25,3 +26,17 @@ def encrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
                     chunk += b' ' * (bs - len(chunk) % bs)
 
                 outfile.write(cipher.encrypt(chunk))
+
+    return out_filename  # возвращаем путь к зашифрованному файлу
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: python encrypt.py <file_path> <key>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    key = sys.argv[2].encode()
+
+    encrypted_file_path = encrypt_file(key, file_path)
+    if encrypted_file_path:
+        print(encrypted_file_path)
