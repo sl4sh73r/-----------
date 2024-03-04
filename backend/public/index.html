@@ -26,8 +26,6 @@
     <script src="sphere.js" type="module"></script>
 </head>
 <body>
-    <audio src="https://storage1.lightaudio.ru/dm/39922426/51eca900/One%20Piece%20OST%20—%20The%20Very%20Very%20Very%20Strongest.mp3" autoplay>
-    </audio>
     <div class="neon-border">
         
         <!-- <div class="super_style">
@@ -71,9 +69,10 @@
                     <button type="submit" class="best_button">Encrypt</button>
                 </form>
                 <div id="encryptionResult" class="alert alert-info" role="alert" style="display: none;">
-                    <div class="result_box" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="result_box" style="justify-content: space-between; word-wrap: break-word;">
                         <span id="encryptionResultText"></span>
-                        <button class="btn btn-light-primary copy-btn" id="copyEncryptionResult">
+                        </br>
+                        <button class="button_for_copy" id="copyEncryptionResult">
                             Copy
                         </button>
                     </div>
@@ -318,63 +317,116 @@
             }
         });
         
-        
-            document.addEventListener('DOMContentLoaded', function() {
-                const encryptionTarget = document.getElementById('encryptionResultText');
-                const encryptionButton = document.getElementById('copyEncryptionResult');
-                const decryptionTarget = document.getElementById('decryptionResultText');
-                const decryptionButton = document.getElementById('copyDecryptionResult');
+        document.addEventListener('DOMContentLoaded', function() {
+            const encryptionTarget = document.getElementById('encryptionResultText');
+            const encryptionButton = document.getElementById('copyEncryptionResult');
+            const decryptionTarget = document.getElementById('decryptionResultText');
+            const decryptionButton = document.getElementById('copyDecryptionResult');
 
-                // Init clipboard for encryption result
-                var clipboardEncryption = new ClipboardJS(encryptionButton, {
-                    text: function() {
-                        return encryptionTarget.innerText;
-                    }
-                });
-
-                // Success action handler for encryption result
-                clipboardEncryption.on('success', function(e) {
-                    const currentLabel = encryptionButton.innerHTML;
-
-                    // Exit label update when already in progress
-                    if(encryptionButton.innerHTML === 'Copied!'){
-                        return;
-                    }
-
-                    // Update button label
-                    encryptionButton.innerHTML = 'Copied!';
-
-                    // Revert button label after 3 seconds
-                    setTimeout(function(){
-                        encryptionButton.innerHTML = currentLabel;
-                    }, 3000)
-                });
-
-                // Init clipboard for decryption result
-                var clipboardDecryption = new ClipboardJS(decryptionButton, {
-                    text: function() {
-                        return decryptionTarget.innerText;
-                    }
-                });
-
-                // Success action handler for decryption result
-                clipboardDecryption.on('success', function(e) {
-                    const currentLabel = decryptionButton.innerHTML;
-
-                    // Exit label update when already in progress
-                    if(decryptionButton.innerHTML === 'Copied!'){
-                        return;
-                    }
-
-                    // Update button label
-                    decryptionButton.innerHTML = 'Copied!';
-
-                    // Revert button label after 3 seconds
-                    setTimeout(function(){
-                        decryptionButton.innerHTML = currentLabel;
-                    }, 3000)
-                });
+            // Init clipboard for encryption result
+            var clipboardEncryption = new ClipboardJS(encryptionButton, {
+                text: function() {
+                    return encryptionTarget.innerText;
+                }
             });
+
+            // Success action handler for encryption result
+            clipboardEncryption.on('success', function(e) {
+                var checkIcon = encryptionButton.querySelector('.ki-check');
+                var copyIcon = encryptionButton.querySelector('.ki-copy');
+
+                // Exit check icon when already showing
+                if (checkIcon) {
+                    return;
+                }
+
+                // Create check icon
+                checkIcon = document.createElement('i');
+                checkIcon.classList.add('ki-duotone');
+                checkIcon.classList.add('ki-check');
+                checkIcon.classList.add('fs-2x');
+
+                // Append check icon
+                encryptionButton.appendChild(checkIcon);
+
+                // Highlight target
+                const classes = ['text-success', 'fw-boldest'];
+                encryptionTarget.classList.add(...classes);
+
+                // Highlight button
+                encryptionButton.classList.add('btn-success');
+
+                // Hide copy icon
+                copyIcon.classList.add('d-none');
+
+                // Revert button label after 3 seconds
+                setTimeout(function () {
+                    // Remove check icon
+                    copyIcon.classList.remove('d-none');
+
+                    // Revert icon
+                    encryptionButton.removeChild(checkIcon);
+
+                    // Remove target highlight
+                    encryptionTarget.classList.remove(...classes);
+
+                    // Remove button highlight
+                    encryptionButton.classList.remove('btn-success');
+                }, 3000)
+            });
+
+            // Init clipboard for decryption result
+            var clipboardDecryption = new ClipboardJS(decryptionButton, {
+                text: function() {
+                    return decryptionTarget.innerText;
+                }
+            });
+
+            // Success action handler for decryption result
+            clipboardDecryption.on('success', function(e) {
+                var checkIcon = decryptionButton.querySelector('.ki-check');
+                var copyIcon = decryptionButton.querySelector('.ki-copy');
+
+                // Exit check icon when already showing
+                if (checkIcon) {
+                    return;
+                }
+
+                // Create check icon
+                checkIcon = document.createElement('i');
+                checkIcon.classList.add('ki-duotone');
+                checkIcon.classList.add('ki-check');
+                checkIcon.classList.add('fs-2x');
+
+                // Append check icon
+                decryptionButton.appendChild(checkIcon);
+
+                // Highlight target
+                const classes = ['text-success', 'fw-boldest'];
+                decryptionTarget.classList.add(...classes);
+
+                // Highlight button
+                decryptionButton.classList.add('btn-success');
+
+                // Hide copy icon
+                copyIcon.classList.add('d-none');
+
+                // Revert button label after 3 seconds
+                setTimeout(function () {
+                    // Remove check icon
+                    copyIcon.classList.remove('d-none');
+
+                    // Revert icon
+                    decryptionButton.removeChild(checkIcon);
+
+                    // Remove target highlight
+                    decryptionTarget.classList.remove(...classes);
+
+                    // Remove button highlight
+                    decryptionButton.classList.remove('btn-success');
+                }, 3000)
+            });
+        });
     </script>
 
 </body>

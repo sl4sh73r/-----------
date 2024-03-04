@@ -105,3 +105,8 @@ button:after {
 button:focus {
   outline: none;
 }
+
+.button_for_copy {
+  margin-top: 20px;
+  background-color: transparent;
+}

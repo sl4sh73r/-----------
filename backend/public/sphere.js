@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('sphereContainer').appendChild(renderer.domElement);
 
   // Создаем геометрию шара
-  var geometry = new THREE.SphereGeometry(2, 125, 125);
+  var geometry = new THREE.SphereGeometry(2, 325, 325);
 
   // Создаем градиент на 2D канвасе
   var canvas = document.createElement('canvas');
@@ -147,7 +147,7 @@ for (var i = 0; i < 150; i++) { // уменьшаем количество ча�
 }
 
 // Добавляем систему частиц на сцену
-scene.add(particleSystem);
+//scene.add(particleSystem);
 
 // В функции анимации добавляем вращение кольцам
 function animate() {
@@ -163,11 +163,11 @@ function animate() {
     ring2.rotation.y += 0.0015;
 
     // Обновляем позицию частиц, чтобы они двигались от колец
-    particleSystem.children.forEach(function(particle) {
-        particle.position.x += ring1.position.x +  (Math.random() - 0.5) * 0.02;
-        particle.position.y += ring1.position.y +  (Math.random() - 0.5) * 0.02;
-        particle.position.z += ring1.position.z +  (Math.random() - 0.5) * 0.02;
-    });
+    // particleSystem.children.forEach(function(particle) {
+    //     particle.position.x += ring1.position.x +  (Math.random() - 0.5) * 0.02;
+    //     particle.position.y += ring1.position.y +  (Math.random() - 0.5) * 0.02;
+    //     particle.position.z += ring1.position.z +  (Math.random() - 0.5) * 0.02;
+    // });
 
     controls.update();
     renderer.render(scene, camera);
