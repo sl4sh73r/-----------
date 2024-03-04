@@ -2,8 +2,18 @@ import main as gh
 import sys
 
 def encrypt(text, password):
-    K = gh.getKeys(password)
-    encrypted_text = gh.encrypt(text, K)
+    try:
+        K = gh.getKeys(password)
+    except Exception as e:
+        print("Error: Failed to generate keys.", str(e))
+        return None
+
+    try:
+        encrypted_text = gh.encrypt(text, K)
+    except Exception as e:
+        print("Error: Encryption failed.", str(e))
+        return None
+
     return encrypted_text
 
 if __name__ == "__main__":
@@ -15,4 +25,7 @@ if __name__ == "__main__":
     password = sys.argv[2]
 
     encrypted_text = encrypt(data, password)
-    print(encrypted_text)
+    if encrypted_text:
+        print(encrypted_text)
+    else:
+        print("Encryption failed.")

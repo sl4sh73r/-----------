@@ -9,24 +9,33 @@ def unpad(data):
         
     return data
 
-
 def decrypt(data, key):
     try:
         data = base64.b64decode(data)
-        iv = data[:Blowfish.block_size]
-        data = data[Blowfish.block_size:]
+    except (TypeError, binascii.Error) as e:
+        print("Error: Invalid base64 input data.", str(e))
+        return None
+
+    if len(data) < Blowfish.block_size:
+        print("Error: Input data is too short.")
+        return None
+
+    iv = data[:Blowfish.block_size]
+    data = data[Blowfish.block_size:]
+
+    try:
         cipher = Blowfish.new(key, Blowfish.MODE_CBC, iv)
+    except ValueError as e:
+        print("Error: Invalid key or IV.", str(e))
+        return None
+
+    try:
         decrypted_data = unpad(cipher.decrypt(data))
-        return decrypted_data
-    except (ValueError, TypeError) as e:
-        print("Error: Invalid input data or key.", str(e))
+    except ValueError as e:
+        print("Error: Decryption failed.", str(e))
         return None
-    except KeyError as e:
-        print("Error: Invalid key.", str(e))
-        return None
-    except Exception as e:
-        print("Error: An unexpected error occurred.", str(e))
-        return None
+
+    return decrypted_data
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:

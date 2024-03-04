@@ -2,8 +2,18 @@ import main as gh
 import sys
 
 def decrypt(text, password):
-    K = gh.getKeys(password)
-    decrypted_text = gh.decrypt(text, K)
+    try:
+        K = gh.getKeys(password)
+    except Exception as e:
+        print("Error: Failed to generate keys.", str(e))
+        return None
+
+    try:
+        decrypted_text = gh.decrypt(text, K)
+    except Exception as e:
+        print("Error: Decryption failed.", str(e))
+        return None
+
     return decrypted_text
 
 if __name__ == "__main__":
@@ -15,4 +25,7 @@ if __name__ == "__main__":
     password = sys.argv[2]
 
     decrypted_text = decrypt(data, password)
-    print(decrypted_text)
+    if decrypted_text:
+        print(decrypted_text)
+    else:
+        print("Decryption failed.")
