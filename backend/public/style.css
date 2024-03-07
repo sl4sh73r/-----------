@@ -8,9 +8,11 @@
 }
 
 body {
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
   color: var(--text-color);
   height: 100%;
+  background: rgb(178,63,255);
+background: linear-gradient(135deg, rgba(178,63,255,1) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 75%, rgba(66,255,234,1) 100%);
 }
 
 a {
@@ -18,10 +20,12 @@ a {
 }
 
 body.dark-theme {
-  background-color: #222222;
+  /* background-color: #222222;  */
   color: #ffffff;
   accent-color: #00a7ff;
   height: 100%;
+  background: rgb(254,27,27);
+background: linear-gradient(135deg, rgba(254,27,27,1) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,1) 75%, rgba(255,163,33,1) 100%);
 }
 
 .theme_switch {
@@ -36,8 +40,8 @@ body.dark-theme {
 }
 
 .sphereCanvas {
-  --sphere-color1: #b11616;
-  --sphere-color2: #00c8ff;
+  --sphere-color1: #b23fff;
+  --sphere-color2: #42ffea;
   --ring-color: #00c8ff;
 }
 
