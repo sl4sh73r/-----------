@@ -4,11 +4,13 @@
   background-color: #ffffff;
   color: #000000;
   accent-color: #007bff;
+  height: 100%;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  height: 100%;
 }
 
 a {
@@ -19,6 +21,7 @@ body.dark-theme {
   background-color: #222222;
   color: #ffffff;
   accent-color: #00a7ff;
+  height: 100%;
 }
 
 .theme_switch {
