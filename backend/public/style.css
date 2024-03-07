@@ -35,6 +35,12 @@ body.dark-theme {
   height: 50px;
 }
 
+.sphereCanvas {
+  --sphere-color1: #b11616;
+  --sphere-color2: #00c8ff;
+  --ring-color: #00c8ff;
+}
+
 #sphereContainer canvas {
   display: block;
   margin: 0 auto;

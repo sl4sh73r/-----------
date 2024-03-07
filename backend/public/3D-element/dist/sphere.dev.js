@@ -11,7 +11,13 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Создаем сцену
+  // Получаем цвета из CSS
+  var canvas = document.querySelector(".sphereCanvas");
+  var style = window.getComputedStyle(canvas);
+  var color1 = style.getPropertyValue("--sphere-color1").trim();
+  var color2 = style.getPropertyValue("--sphere-color2").trim();
+  var ringcolor = style.getPropertyValue("--ring-color").trim(); // Создаем сцену
+
   var scene = new THREE.Scene(); // Создаем камеру
 
   var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -22,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }); // Устанавливаем размер рендерера
 
   renderer.setSize(750, 350);
-  document.getElementById('sphereContainer').appendChild(renderer.domElement); // Создаем геометрию шара
+  document.getElementById("sphereContainer").appendChild(renderer.domElement); // Создаем геометрию шара
 
-  var geometry = new THREE.SphereGeometry(2, 125, 125); // Создаем градиент на 2D канвасе
+  var geometry = new THREE.SphereGeometry(2, 325, 325); // Создаем градиент на 2D канвасе
 
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
   var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, 'skyblue');
-  gradient.addColorStop(1, 'darkviolet');
+  gradient.addColorStop(0, color1);
+  gradient.addColorStop(1, color2);
   context.fillStyle = gradient;
   context.fillRect(0, 0, canvas.width, canvas.height); // Создаем текстуру из канваса
 
@@ -63,18 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
   controls.enableDamping = true;
   controls.dampingFactor = 0.05; // Создаем канвас для текстуры ареолы
 
-  var glowCanvas = document.createElement('canvas');
+  var glowCanvas = document.createElement("canvas");
   glowCanvas.width = 128;
   glowCanvas.height = 128;
-  var glowContext = glowCanvas.getContext('2d'); // Создаем радиальный градиент
+  var glowContext = glowCanvas.getContext("2d"); // Создаем радиальный градиент
 
   var glowGradient = glowContext.createRadialGradient(glowCanvas.width / 2, glowCanvas.height / 2, 0, glowCanvas.width / 2, glowCanvas.height / 2, glowCanvas.width / 2);
-  glowGradient.addColorStop(0, 'rgba(0, 0, 0, 0)'); //   glowGradient.addColorStop(0.40, 'rgba(0, 0, 0, 0)');
+  glowGradient.addColorStop(0, "rgba(0, 0, 0, 0)"); //   glowGradient.addColorStop(0.40, 'rgba(0, 0, 0, 0)');
 
-  glowGradient.addColorStop(0.40, 'darkviolet');
-  glowGradient.addColorStop(0.50, 'skyblue');
-  glowGradient.addColorStop(0.60, 'rgba(0, 0, 0, 0)');
-  glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)'); // Применяем градиент
+  glowGradient.addColorStop(0.4, color1);
+  glowGradient.addColorStop(0.5, color2);
+  glowGradient.addColorStop(0.6, "rgba(0, 0, 0, 0)");
+  glowGradient.addColorStop(1, "rgba(0, 0, 0, 0)"); // Применяем градиент
 
   glowContext.fillStyle = glowGradient;
   glowContext.fillRect(0, 0, glowCanvas.width, glowCanvas.height); // Создаем текстуру из канваса
@@ -84,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var glowMaterial = new THREE.SpriteMaterial({
     map: glowTexture,
     transparent: true,
-    opacity: 0.40 // делаем ареолу полупрозрачной
+    opacity: 0.4 // делаем ареолу полупрозрачной
 
   }); // Создаем ареолу как спрайт
 
@@ -96,9 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function computeGlowColor(rotation) {
     var t = (Math.sin(rotation) + 1) / 2; // вычисляем t в диапазоне от 0 до 1
 
-    var skyBlue = new THREE.Color(0x87CEEB); // RGB для небесно-голубого
+    var skyBlue = new THREE.Color(color1); // RGB для небесно-голубого
 
-    var darkviolet = new THREE.Color(0x9400D3); // RGB для фиолетово-неонового
+    var darkviolet = new THREE.Color(color2); // RGB для фиолетово-неонового
 
     var color = new THREE.Color();
     color.r = THREE.MathUtils.lerp(skyBlue.r, darkviolet.r, t);
@@ -112,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var ringGeometry2 = new THREE.TorusGeometry(2.75, 0.05, 160, 1000); // Создаем материал для колец
 
   var ringMaterial = new THREE.MeshBasicMaterial({
-    color: 0x457fba,
+    color: ringcolor,
     side: THREE.DoubleSide
   }); // Создаем кольца
 
@@ -123,24 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ring2.rotation.x = Math.PI / 2; // Добавляем кольца на сцену
 
   scene.add(ring1);
-  scene.add(ring2); // Создаем систему частиц
-
-  var particleGeometry = new THREE.SphereGeometry(0.01, 32, 32);
-  var particleMaterial = new THREE.MeshBasicMaterial({
-    color: 0x7DF9FF
-  });
-  var particleSystem = new THREE.Group();
-
-  for (var i = 0; i < 150; i++) {
-    // уменьшаем количество частиц до 500
-    var particle = new THREE.Mesh(particleGeometry, particleMaterial); // устанавливаем начальные позиции частиц дальше от колец
-
-    particle.position.set(Math.random() * 5 - 2.5, Math.random() * 5 - 2.5, Math.random() * 5 - 2.5);
-    particleSystem.add(particle);
-  } // Добавляем систему частиц на сцену
-
-
-  scene.add(particleSystem); // В функции анимации добавляем вращение кольцам
+  scene.add(ring2); // В функции анимации добавляем вращение кольцам
 
   function animate() {
     requestAnimationFrame(animate);
@@ -157,12 +146,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     ring1.rotation.y += 0.005;
     ring2.rotation.y += 0.0015; // Обновляем позицию частиц, чтобы они двигались от колец
+    // particleSystem.children.forEach(function(particle) {
+    //     particle.position.x += ring1.position.x +  (Math.random() - 0.5) * 0.02;
+    //     particle.position.y += ring1.position.y +  (Math.random() - 0.5) * 0.02;
+    //     particle.position.z += ring1.position.z +  (Math.random() - 0.5) * 0.02;
+    // });
 
-    particleSystem.children.forEach(function (particle) {
-      particle.position.x += ring1.position.x + (Math.random() - 0.5) * 0.02;
-      particle.position.y += ring1.position.y + (Math.random() - 0.5) * 0.02;
-      particle.position.z += ring1.position.z + (Math.random() - 0.5) * 0.02;
-    });
     controls.update();
     renderer.render(scene, camera);
   }
