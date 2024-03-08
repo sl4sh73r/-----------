@@ -21,16 +21,39 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   document.getElementById("theme-toggle").addEventListener("click", function () {
-      var darkCanvas = document.querySelector(".sphereCanvas.dark-theme");
-      var style = window.getComputedStyle(darkCanvas);
-      // Получаем стили элемента .sphereCanvas
-      var style = getComputedStyle(darkCanvas);
+    var sphereCanvas = document.querySelector(".sphereCanvas");
+    sphereCanvas.classList.toggle('dark-theme');
+    var style = window.getComputedStyle(sphereCanvas);
 
-      // Обновляем значения переменных
-      config.color1 = style.getPropertyValue("--sphere-color1").trim();
-      config.color2 = style.getPropertyValue("--sphere-color2").trim();
-      config.ringcolor = style.getPropertyValue("--ring-color").trim();
+    // Обновляем значения переменных
+    config.color1 = style.getPropertyValue("--sphere-color1").trim();
+    config.color2 = style.getPropertyValue("--sphere-color2").trim();
+    config.ringcolor = style.getPropertyValue("--ring-color").trim();
+
+    // Создаем новый градиент
+    var context = canvas.getContext("2d");
+    var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, config.color1);
+    gradient.addColorStop(1, config.color2);
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Создаем новую текстуру
+    var texture = new THREE.CanvasTexture(canvas);
+
+    // Создаем новый материал
+    var material = new THREE.MeshPhongMaterial({
+        map: texture,
+        emissive: 0x072534,
+        side: THREE.DoubleSide,
+        flatShading: true,
     });
+
+    // Обновляем материал сферы
+    sphere.material = material;
+    ring1.material.color.set(config.ringcolor);
+    ring2.material.color.set(config.ringcolor);
+});
 
   // Создаем сцену
   var scene = new THREE.Scene();
