@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
   document.getElementById("theme-toggle").addEventListener("click", function () {
     var sphereCanvas = document.querySelector(".sphereCanvas");
-    sphereCanvas.classList.toggle('dark-theme');
+    sphereCanvas.classList.toggle("dark-theme");
     var style = window.getComputedStyle(sphereCanvas); // Обновляем значения переменных
 
     config.color1 = style.getPropertyValue("--sphere-color1").trim();
@@ -107,7 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
   controls.target.set(sphere.position.x, sphere.position.y, sphere.position.z); // Включаем инерцию
 
   controls.enableDamping = true;
-  controls.dampingFactor = 0.05; // Создаем канвас для текстуры ареолы
+  controls.dampingFactor = 0.05; // Отключаем масштабирование
+
+  controls.enableZoom = false; // Создаем канвас для текстуры ареолы
 
   var glowCanvas = document.createElement("canvas");
   glowCanvas.width = 128;

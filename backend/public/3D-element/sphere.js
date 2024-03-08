@@ -7,8 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
   var style = window.getComputedStyle(canvas);
   var config = {
     sphereRadius: style.getPropertyValue("--sphere-radius").trim(),
-    sphereWidthSegments: style.getPropertyValue("--sphere-width-segments").trim(),
-    sphereHeightSegments: style.getPropertyValue("--sphere-height-segments").trim(),
+    sphereWidthSegments: style
+      .getPropertyValue("--sphere-width-segments")
+      .trim(),
+    sphereHeightSegments: style
+      .getPropertyValue("--sphere-height-segments")
+      .trim(),
     cameraFov: 75,
     cameraNear: 0.1,
     cameraFar: 1000,
@@ -20,40 +24,42 @@ document.addEventListener("DOMContentLoaded", function () {
     ringcolor: style.getPropertyValue("--ring-color").trim(),
   };
 
-  document.getElementById("theme-toggle").addEventListener("click", function () {
-    var sphereCanvas = document.querySelector(".sphereCanvas");
-    sphereCanvas.classList.toggle('dark-theme');
-    var style = window.getComputedStyle(sphereCanvas);
+  document
+    .getElementById("theme-toggle")
+    .addEventListener("click", function () {
+      var sphereCanvas = document.querySelector(".sphereCanvas");
+      sphereCanvas.classList.toggle("dark-theme");
+      var style = window.getComputedStyle(sphereCanvas);
 
-    // Обновляем значения переменных
-    config.color1 = style.getPropertyValue("--sphere-color1").trim();
-    config.color2 = style.getPropertyValue("--sphere-color2").trim();
-    config.ringcolor = style.getPropertyValue("--ring-color").trim();
+      // Обновляем значения переменных
+      config.color1 = style.getPropertyValue("--sphere-color1").trim();
+      config.color2 = style.getPropertyValue("--sphere-color2").trim();
+      config.ringcolor = style.getPropertyValue("--ring-color").trim();
 
-    // Создаем новый градиент
-    var context = canvas.getContext("2d");
-    var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, config.color1);
-    gradient.addColorStop(1, config.color2);
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, canvas.width, canvas.height);
+      // Создаем новый градиент
+      var context = canvas.getContext("2d");
+      var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, config.color1);
+      gradient.addColorStop(1, config.color2);
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Создаем новую текстуру
-    var texture = new THREE.CanvasTexture(canvas);
+      // Создаем новую текстуру
+      var texture = new THREE.CanvasTexture(canvas);
 
-    // Создаем новый материал
-    var material = new THREE.MeshPhongMaterial({
+      // Создаем новый материал
+      var material = new THREE.MeshPhongMaterial({
         map: texture,
         emissive: 0x072534,
         side: THREE.DoubleSide,
         flatShading: true,
-    });
+      });
 
-    // Обновляем материал сферы
-    sphere.material = material;
-    ring1.material.color.set(config.ringcolor);
-    ring2.material.color.set(config.ringcolor);
-});
+      // Обновляем материал сферы
+      sphere.material = material;
+      ring1.material.color.set(config.ringcolor);
+      ring2.material.color.set(config.ringcolor);
+    });
 
   // Создаем сцену
   var scene = new THREE.Scene();
@@ -122,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
 
+  // Отключаем масштабирование
+  controls.enableZoom = false;
   // Создаем канвас для текстуры ареолы
   var glowCanvas = document.createElement("canvas");
   glowCanvas.width = 128;
@@ -174,8 +182,6 @@ document.addEventListener("DOMContentLoaded", function () {
     color.b = THREE.MathUtils.lerp(skyBlue.b, darkviolet.b, t);
     return color;
   }
-
-  
 
   // Создаем геометрию для колец
   var ringGeometry1 = new THREE.TorusGeometry(2.5, 0.02, 160, 1000);
