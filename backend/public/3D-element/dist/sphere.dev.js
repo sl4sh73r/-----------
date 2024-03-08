@@ -14,29 +14,50 @@ document.addEventListener("DOMContentLoaded", function () {
   // Получаем цвета из CSS
   var canvas = document.querySelector(".sphereCanvas");
   var style = window.getComputedStyle(canvas);
-  var color1 = style.getPropertyValue("--sphere-color1").trim();
-  var color2 = style.getPropertyValue("--sphere-color2").trim();
-  var ringcolor = style.getPropertyValue("--ring-color").trim(); // Создаем сцену
+  var config = {
+    sphereRadius: style.getPropertyValue("--sphere-radius").trim(),
+    sphereWidthSegments: style.getPropertyValue("--sphere-width-segments").trim(),
+    sphereHeightSegments: style.getPropertyValue("--sphere-height-segments").trim(),
+    cameraFov: 75,
+    cameraNear: 0.1,
+    cameraFar: 1000,
+    cameraPositionZ: style.getPropertyValue("--camera-position-z").trim(),
+    rendererWidth: style.getPropertyValue("--renderer-width").trim(),
+    rendererHeight: style.getPropertyValue("--renderer-height").trim(),
+    color1: style.getPropertyValue("--sphere-color1").trim(),
+    color2: style.getPropertyValue("--sphere-color2").trim(),
+    ringcolor: style.getPropertyValue("--ring-color").trim()
+  };
+  document.getElementById("theme-toggle").addEventListener("click", function () {
+    var darkCanvas = document.querySelector(".sphereCanvas.dark-theme");
+    var style = window.getComputedStyle(darkCanvas); // Получаем стили элемента .sphereCanvas
+
+    var style = getComputedStyle(darkCanvas); // Обновляем значения переменных
+
+    config.color1 = style.getPropertyValue("--sphere-color1").trim();
+    config.color2 = style.getPropertyValue("--sphere-color2").trim();
+    config.ringcolor = style.getPropertyValue("--ring-color").trim();
+  }); // Создаем сцену
 
   var scene = new THREE.Scene(); // Создаем камеру
 
-  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 5; // Создаем рендерер с прозрачным фоном
+  var camera = new THREE.PerspectiveCamera(config.cameraFov, config.rendererWidth / config.rendererHeight, config.cameraNear, config.cameraFar);
+  camera.position.z = config.cameraPositionZ; // Создаем рендерер с прозрачным фоном
 
   var renderer = new THREE.WebGLRenderer({
     alpha: true
   }); // Устанавливаем размер рендерера
 
-  renderer.setSize(750, 350);
+  renderer.setSize(config.rendererWidth, config.rendererHeight);
   document.getElementById("sphereContainer").appendChild(renderer.domElement); // Создаем геометрию шара
 
-  var geometry = new THREE.SphereGeometry(2, 325, 325); // Создаем градиент на 2D канвасе
+  var geometry = new THREE.SphereGeometry(config.sphereRadius, config.sphereWidthSegments, config.sphereHeightSegments); // Создаем градиент на 2D канвасе
 
   var canvas = document.createElement("canvas");
   var context = canvas.getContext("2d");
   var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, color1);
-  gradient.addColorStop(1, color2);
+  gradient.addColorStop(0, config.color1);
+  gradient.addColorStop(1, config.color2);
   context.fillStyle = gradient;
   context.fillRect(0, 0, canvas.width, canvas.height); // Создаем текстуру из канваса
 
@@ -77,8 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var glowGradient = glowContext.createRadialGradient(glowCanvas.width / 2, glowCanvas.height / 2, 0, glowCanvas.width / 2, glowCanvas.height / 2, glowCanvas.width / 2);
   glowGradient.addColorStop(0, "rgba(0, 0, 0, 0)"); //   glowGradient.addColorStop(0.40, 'rgba(0, 0, 0, 0)');
 
-  glowGradient.addColorStop(0.4, color1);
-  glowGradient.addColorStop(0.5, color2);
+  glowGradient.addColorStop(0.4, config.color1);
+  glowGradient.addColorStop(0.5, config.color2);
   glowGradient.addColorStop(0.6, "rgba(0, 0, 0, 0)");
   glowGradient.addColorStop(1, "rgba(0, 0, 0, 0)"); // Применяем градиент
 
@@ -102,9 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function computeGlowColor(rotation) {
     var t = (Math.sin(rotation) + 1) / 2; // вычисляем t в диапазоне от 0 до 1
 
-    var skyBlue = new THREE.Color(color1); // RGB для небесно-голубого
+    var skyBlue = new THREE.Color(config.color1); // RGB для небесно-голубого
 
-    var darkviolet = new THREE.Color(color2); // RGB для фиолетово-неонового
+    var darkviolet = new THREE.Color(config.color2); // RGB для фиолетово-неонового
 
     var color = new THREE.Color();
     color.r = THREE.MathUtils.lerp(skyBlue.r, darkviolet.r, t);
@@ -118,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var ringGeometry2 = new THREE.TorusGeometry(2.75, 0.05, 160, 1000); // Создаем материал для колец
 
   var ringMaterial = new THREE.MeshBasicMaterial({
-    color: ringcolor,
+    color: config.ringcolor,
     side: THREE.DoubleSide
   }); // Создаем кольца
 
@@ -157,4 +178,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   animate();
-});
+}); // window.addEventListener('resize', function () {
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+// });

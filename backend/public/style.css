@@ -24,8 +24,8 @@ body.dark-theme {
   color: #ffffff;
   accent-color: #00a7ff;
   height: 100%;
-  background: rgb(254,27,27);
-background: linear-gradient(135deg, rgba(254,27,27,1) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,1) 75%, rgba(255,163,33,1) 100%);
+  background: rgb(202, 55, 86);
+  background: linear-gradient(135deg, rgba(202, 55, 86,1) 0%, rgba(10, 10, 12,1) 25%, rgba(10, 10, 12,1) 75%, rgba(247, 218, 223,1) 100%);
 }
 
 .theme_switch {
@@ -43,6 +43,24 @@ background: linear-gradient(135deg, rgba(254,27,27,1) 0%, rgba(0,0,0,1) 25%, rgb
   --sphere-color1: #b23fff;
   --sphere-color2: #42ffea;
   --ring-color: #00c8ff;
+  --sphere-radius: 2;
+  --sphere-width-segments: 325;
+  --sphere-height-segments: 325;
+  --camera-position-z: 5;
+  --renderer-width: 400;
+  --renderer-height: 375;
+}
+
+.sphereCanvas.dark-theme {
+  --sphere-color1: #ff3f3f;
+  --sphere-color2: #200101;
+  --ring-color: #dfe6d6b4;
+  --sphere-radius: 2;
+  --sphere-width-segments: 325;
+  --sphere-height-segments: 325;
+  --camera-position-z: 5;
+  --renderer-width: 400;
+  --renderer-height: 375;
 }
 
 #sphereContainer canvas {
