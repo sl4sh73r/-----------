@@ -58,7 +58,20 @@ document.getElementById('decryptionForm').addEventListener('submit', function (e
       a.href = url;
       a.download = originalFileName; // Имя файла для скачивания
 
-      document.body.appendChild(a); // Создаем кнопку для скачивания файла
+      document.body.appendChild(a); // Функция для обновления стиля кнопки в зависимости от темы
+
+      function updateButtonStyle(button) {
+        var isDarkTheme = document.body.classList.contains('dark-theme');
+
+        if (isDarkTheme) {
+          button.classList.remove('light-theme');
+          button.classList.add('dark-theme');
+        } else {
+          button.classList.remove('dark-theme');
+          button.classList.add('light-theme');
+        }
+      } // Создаем кнопку для скачивания файла
+
 
       var downloadDecryptButton = document.getElementById('downloadDecryptButton');
 
@@ -68,6 +81,9 @@ document.getElementById('decryptionForm').addEventListener('submit', function (e
         downloadDecryptButton.className = 'download-button'; // Добавьте класс
 
         downloadDecryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
+        // Обновляем стиль кнопки при создании
+
+        updateButtonStyle(downloadDecryptButton);
       }
 
       downloadDecryptButton.onclick = function () {
@@ -75,7 +91,14 @@ document.getElementById('decryptionForm').addEventListener('submit', function (e
       };
 
       var buttonContainer = document.querySelector('.button-decrypt-container');
-      buttonContainer.appendChild(downloadDecryptButton);
+      buttonContainer.appendChild(downloadDecryptButton); // Обновляем стиль кнопки при изменении темы
+
+      if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQueryList.addListener(function () {
+          return updateButtonStyle(downloadDecryptButton);
+        });
+      }
     })["catch"](function (error) {
       console.error('Произошла ошибка:', error);
     });

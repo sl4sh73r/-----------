@@ -52,14 +52,29 @@ document.getElementById('decryptionForm').addEventListener('submit', function(ev
             a.href = url;
             a.download = originalFileName; // Имя файла для скачивания
             document.body.appendChild(a);
-
-            // Создаем кнопку для скачивания файла
+        
+        
+         // Функция для обновления стиля кнопки в зависимости от темы
+         function updateButtonStyle(button) {
+            const isDarkTheme = document.body.classList.contains('dark-theme');
+            if (isDarkTheme) {
+                button.classList.remove('light-theme');
+                button.classList.add('dark-theme');
+            } else {
+                button.classList.remove('dark-theme');
+                button.classList.add('light-theme');
+            }
+        }
+        // Создаем кнопку для скачивания файла
         let downloadDecryptButton = document.getElementById('downloadDecryptButton');
         if (!downloadDecryptButton) {
             downloadDecryptButton = document.createElement('button');
             downloadDecryptButton.id = 'downloadDecryptButton';
             downloadDecryptButton.className = 'download-button'; // Добавьте класс
             downloadDecryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
+
+            // Обновляем стиль кнопки при создании
+            updateButtonStyle(downloadDecryptButton);
         }
 
         downloadDecryptButton.onclick = function() {
@@ -68,6 +83,12 @@ document.getElementById('decryptionForm').addEventListener('submit', function(ev
 
         const buttonContainer = document.querySelector('.button-decrypt-container');
         buttonContainer.appendChild(downloadDecryptButton);
+
+        // Обновляем стиль кнопки при изменении темы
+        if (window.matchMedia) {
+            const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQueryList.addListener(() => updateButtonStyle(downloadDecryptButton));
+        }
         })
         .catch(error => {
             console.error('Произошла ошибка:', error);

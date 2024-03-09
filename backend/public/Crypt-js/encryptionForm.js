@@ -50,12 +50,27 @@ document.getElementById('encryptionForm').addEventListener('submit', function(ev
             a.download = originalFileName+"_"+algorithm+".enc"; // Имя файла для скачивания
             document.body.appendChild(a);
 
+            // Функция для обновления стиля кнопки в зависимости от темы
+            function updateButtonStyle(button) {
+                const isDarkTheme = document.body.classList.contains('dark-theme');
+                if (isDarkTheme) {
+                    button.classList.remove('light-theme');
+                    button.classList.add('dark-theme');
+                } else {
+                    button.classList.remove('dark-theme');
+                    button.classList.add('light-theme');
+                }
+            }
+
             let downloadEncryptButton = document.getElementById('downloadEncryptButton');
             if (!downloadEncryptButton) {
                 downloadEncryptButton = document.createElement('button');
                 downloadEncryptButton.id = 'downloadEncryptButton';
                 downloadEncryptButton.className = 'download-button'; // Добавьте класс
                 downloadEncryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
+
+                // Обновляем стиль кнопки при создании
+                updateButtonStyle(downloadEncryptButton);
             }
 
             downloadEncryptButton.onclick = function() {
@@ -64,6 +79,10 @@ document.getElementById('encryptionForm').addEventListener('submit', function(ev
 
             const buttonContainer = document.querySelector('.button-encrypt-container');
             buttonContainer.appendChild(downloadEncryptButton);
+            // Обновляем стиль кнопки при изменении темы
+            if (window.matchMedia) {
+                const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+                mediaQueryList.addListener(() => updateButtonStyle(downloadEncryptButton));}
         })
 
         

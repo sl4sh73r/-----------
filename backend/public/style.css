@@ -238,6 +238,17 @@ body.dark-theme {
   /* Здесь добавьте свои стили для иконки, если они отличаются от стилей кнопки */
 }
 
+.download-button.light-theme {
+  background-image: linear-gradient(90deg,#dfebef,#ADD8E6,#e87df0,#e5bae8,#eaeaea);
+  color: #000; /* Черный цвет текста для светлой темы */
+}
+
+/* Стили для темной темы */
+.download-button.dark-theme {
+  background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+  color: #fff; /* Белый цвет текста для темной темы */
+}
+
 
 /* Изменение цвета иконки и добавление тени */
 #theme-icon {
