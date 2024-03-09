@@ -36,7 +36,7 @@
         <div class="container_main">
             <div class="container_1">
                 <h1 class ="TextEncryptionHeader" 
-                style="text-align: center;">Encryption Demo</h1>
+                style="text-align: center;">Encryption</h1>
                 <form class="encryptionForm" id="encryptionForm" enctype='multipart/form-data'>
                     <div class="form-group">
                         <label for="inputTypeEncryption">Choose input type:</label>
@@ -68,21 +68,23 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="best_button">Encrypt</button>
+                    <button type="submit" class="encrypt_button">
+                        <i class="fas fa-lock-open"></i> <!-- Иконка открытого замка -->
+                    </button>
                 </form>
                 <div id="encryptionResult" class="alert alert-info" role="alert" style="display: none;">
                     <div class="result_box" style="justify-content: space-between; word-wrap: break-word;">
                         <span id="encryptionResultText"></span>
                         </br>
-                        <button class="button_for_copy" id="copyEncryptionResult">
-                            Copy
+                        <button class="btn btn-light-primary copy-btn" id="copyEncryptionResult">
+                            <i class="fas fa-copy"></i> <!-- Иконка копирования -->
                         </button>
                     </div>
                 </div>
             </div>
 
             <div class="container_2">
-                <h1 class="TextDecryptionHeader" style="text-align: center;">Decryption Demo</h1>
+                <h1 class="TextDecryptionHeader" style="text-align: center;">Decryption</h1>
                 <form id="decryptionForm">
                     <div class="form-group">
                         <label for="inputTypeDecryption">Choose input type:</label>
@@ -113,13 +115,15 @@
                         <!-- Add more options as needed -->
                         </select>
                     </div>
-                    <button type="submit" class="best_button">Decrypt</button>
+                    <button type="submit" class="decrypt_button">
+                        <i class="fas fa-lock"></i> <!-- Иконка закрытого замка -->
+                    </button>
                 </form>
                 <div id="decryptionResult" class="alert alert-info" role="alert" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <span id="decryptionResultText"></span>
                         <button class="btn btn-light-primary copy-btn" id="copyDecryptionResult">
-                            Copy
+                            <i class="fas fa-copy"></i> <!-- Иконка копирования -->
                         </button>
                     </div>
                 </div>
@@ -134,6 +138,30 @@
             document.getElementById(`${formType}TextGroup`).style.display = inputType === 'text' ? 'block' : 'none';
             document.getElementById(`${formType}FileGroup`).style.display = inputType === 'file' ? 'block' : 'none';
         }
+
+        document.querySelector('.encrypt_button').addEventListener('click', function() {
+            var icon = this.querySelector('i');
+            if (icon.classList.contains('fa-lock-open')) {
+                icon.classList.remove('fa-lock-open');
+                icon.classList.add('fa-lock'); // Иконка закрытого замка
+                setTimeout(function() {
+                    icon.classList.remove('fa-lock');
+                    icon.classList.add('fa-lock-open'); // Иконка открытого замка
+                }, 1000); // Задержка в 1 секунду
+            }
+        });
+
+        document.querySelector('.decrypt_button').addEventListener('click', function() {
+            var icon = this.querySelector('i');
+            if (icon.classList.contains('fa-lock')) {
+                icon.classList.remove('fa-lock');
+                icon.classList.add('fa-lock-open'); // Иконка открытого замка
+                setTimeout(function() {
+                    icon.classList.remove('fa-lock-open');
+                    icon.classList.add('fa-lock'); // Иконка закрытого замка
+                }, 1000); // Задержка в 1 секунду
+            }
+        });
     </script>
     <script src="actionLogic/clipboard.js"></script>
     <script src="Crypt-js/encryptionForm.js"></script>
