@@ -37,7 +37,7 @@
         </div>
         <div class="container_main">
             <div class="container_1">
-                <h1 class ="TextEncryptionHeader" 
+                <h1 class ="header1" 
                 style="text-align: center;">Encryption</h1>
                 <form class="encryptionForm" id="encryptionForm" enctype='multipart/form-data'>
                     <div class="form-group">
@@ -86,7 +86,7 @@
             </div>
 
             <div class="container_2">
-                <h1 class="TextDecryptionHeader" style="text-align: center;">Decryption</h1>
+                <h1 class="header1" style="text-align: center;">Decryption</h1>
                 <form id="decryptionForm">
                     <div class="form-group">
                         <label for="inputTypeDecryption">Choose input type:</label>
@@ -138,6 +138,10 @@
             for(var i = 0; i < buttons.length; i++) {
                 buttons[i].classList.toggle('dark-theme');
             }
+
+            // Добавление переключения темы для .header1
+            var headers = document.querySelectorAll('.header1');
+            headers.forEach(header => header.classList.toggle('dark-theme'));
 
             // Переключение иконки
             var themeIcon = document.getElementById('theme-icon');

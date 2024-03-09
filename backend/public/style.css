@@ -34,9 +34,9 @@ body.dark-theme {
 }
 
 .sphereCanvas {
-  --sphere-color1: #b23fff;
-  --sphere-color2: #42ffea;
-  --ring-color: #00c8ff;
+  --sphere-color1: #e87df0;
+  --sphere-color2: #ADD8E6;
+  --ring-color: #ADD8E6;
   --sphere-radius: 2;
   --sphere-width-segments: 325;
   --sphere-height-segments: 325;
@@ -82,21 +82,62 @@ body.dark-theme {
     margin-left: 0%;
 }
 
-.TextEncryptionHeader, .TextDecryptionHeader{
-  font-family: sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
+
+.header1 {
+  font-family: 'Chilanka', cursive;
   font-style: normal;
   font-weight: 700;
   font-size: 2.75rem;
   line-height: 1.2;
   cursor: default;
+  background: linear-gradient(270deg, #e87df0, #e87df0, #e87df0);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6;
+  animation: lightning 1s linear infinite;
+  padding: 20px;
+  -webkit-text-stroke: 1px black; /* Тонкая черная обводка */
 }
 
-.TextEncryptionHeader:hover, .TextDecryptionHeader:hover{
-  color: transparent;
-  background-image: linear-gradient(90deg, #15CBF4 0%, #b621fe 100%);
+@keyframes lightning {
+  0%, 100% {
+    text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6, 0 0 15px #ADD8E6, 0 0 20px #ADD8E6;
+  }
+  50% {
+    text-shadow: 0 0 10px #ADD8E6, 0 0 20px #ADD8E6, 0 0 30px #ADD8E6, 0 0 40px #ADD8E6;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
+
+.header1.dark-theme {
+  font-family: 'Chilanka', cursive;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2.75rem;
+  line-height: 1.2;
+  cursor: default;
+  background: linear-gradient(270deg, #ff3f3f, #200101, #606060, #f7dadf);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
-  background-clip: text;
-  transition: 0.6s linear;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px #606060, 0 0 10px #606060;
+  animation: bounce 30s linear 1;
+  padding: 20px;
+  -webkit-text-stroke: 1px #200101; /* Тонкая черная обводка */
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #606060, 0 0 10px #606060, 0 0 15px #606060, 0 0 20px #606060;
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px #8B0000, 0 0 20px #8B0000, 0 0 30px #8B0000, 0 0 40px #8B0000;
+  }
 }
 
 #decryptionResult {
@@ -121,6 +162,21 @@ body.dark-theme {
   width: 35px; /* Уменьшает ширину кнопки */
   height: 35px; /* Уменьшает высоту кнопки */
 }
+.copy-btn.dark-theme{
+  font-size: 0.8em; /* Уменьшает размер иконки */
+  z-index: 100;
+  cursor: pointer;
+  font-weight: 100;
+  border: none;
+  background: none;
+  padding: 0;
+  position: absolute; /* Позиционирует кнопку относительно ближайшего позиционированного предка (в данном случае, #decryptionResult) */
+  top: 0; /* Позиционирует кнопку в верхнем углу */
+  right: 0; /* Позиционирует кнопку в правом углу */
+  width: 35px; /* Уменьшает ширину кнопки */
+  height: 35px; /* Уменьшает высоту кнопки */
+}
+
 
 
 .best_button {
@@ -207,7 +263,7 @@ button{
   height: 50px;
   border-radius : 3em;
   padding:1.2em 1em;
-  background-image: linear-gradient(90deg,#3e56a7,#04acff,#35a1e0,#3e56a7,#14accc);
+  background-image: linear-gradient(90deg,#dfebef,#ADD8E6,#e87df0,#e5bae8,#eaeaea);
   background-size:400%;
   cursor: pointer;
   border: none;
@@ -248,15 +304,15 @@ button.copy-btn:hover {
 @keyframes animate{
   0%{
     background-position : 0%;
-    box-shadow: 0 0 .8em #04acff;
+    box-shadow: 0 0 .8em #ADD8E6;
   }
   50%{
     background-position: 60%;
-    box-shadow: 0 0 .8em #1ad0e1;
+    box-shadow: 0 0 .8em #cfdaff;
   }
   100%{
     background-position: 100%;
-    box-shadow: 0 0 .8em #3e56a7;
+    box-shadow: 0 0 .8em #ADD8E6;
   }
 }
 
