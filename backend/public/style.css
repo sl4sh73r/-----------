@@ -28,12 +28,6 @@ body.dark-theme {
   background: linear-gradient(135deg, rgba(202, 55, 86,1) 0%, rgba(10, 10, 12,1) 25%, rgba(10, 10, 12,1) 75%, rgba(247, 218, 223,1) 100%);
 }
 
-.theme_switch {
-  border-radius: 5px;
-}
-
-/* Окончание кода переключателя темы */
-
 .header {
   width: 100%;
   height: 50px;
@@ -162,6 +156,52 @@ body.dark-theme {
 }
 
 
+
+/* Изменение цвета иконки и добавление тени */
+#theme-icon {
+  color: #000; /* Черный цвет для светлой темы */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Тень для улучшения видимости */
+}
+
+body.dark-theme #theme-icon {
+  color: #fff; /* Белый цвет для темной темы */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Тень для улучшения видимости */
+}
+
+/* Переопределение стилей кнопки для theme_switch */
+.theme_switch {
+  background: none !important;
+  border: none !important;
+  width: 50px; /* Установите ширину кнопки */
+  height: 50px; /* Установите высоту кнопки */
+  padding: 0; /* Удалите отступы, чтобы иконка занимала всю область кнопки */
+  display: flex; /* Используйте flexbox для центрирования иконки */
+  justify-content: center; /* Центрируйте иконку по горизонтали */
+  align-items: center; /* Центрируйте иконку по вертикали */
+}
+
+/* Стили для светлой темы */
+.theme_switch.light-theme {
+  background-image: linear-gradient(90deg,#3e56a7,#04acff,#35a1e0,#3e56a7,#14accc);
+  color: #000; /* Черный цвет текста для светлой темы */
+}
+
+/* Стили для темной темы */
+.theme_switch.dark-theme {
+  background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+  color: #fff; /* Белый цвет текста для темной темы */
+}
+
+
+button.theme_switch:hover {
+  animation: none;
+}
+
+button.theme_switch.dark-theme:hover {
+  animation: none;
+}
+
+
 button{
   width: 150px;
   height: 50px;
@@ -176,26 +216,11 @@ button{
   position: relative;
 }
 
-button:before, button:after {
-  z-index: -1;
-  content: '';
-  position: absolute;
-  width: 75px;
-  height: 0px; 
-  background: transparent;
-  transition: 500ms;
-  border: none;
+button.dark-theme {
+  background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+  color: #ffffff;
 }
 
-button:before {
-  transform: translateX(-50px) translateY(27px);
-  box-shadow: 5px 5px 16px #61cdff;
-}
-
-button:after {
-  transform: translateX(-25px) translateY(27px);
-  box-shadow: -5px 5px 16px #1fd1f9;
-}
 
 button:hover{
   animation: animate 3s ease-out infinite;
@@ -204,6 +229,17 @@ button:hover{
 button:hover{
   text-shadow:0 0 .5em rgba(255,255,255,0.8);
 }
+
+
+button.dark-theme:hover {
+  animation: animate-dark 3s ease-out infinite;
+}
+
+button.dark-theme:hover {
+  text-shadow:0 0 .5em rgb(0, 0, 0, 0.8);
+}
+
+
 
 button.copy-btn:hover {
   animation: none;
@@ -224,12 +260,17 @@ button.copy-btn:hover {
   }
 }
 
-
-/* button:focus {
-  outline: none;
+@keyframes animate-dark {
+  0%{
+    background-position : 0%;
+    box-shadow: 0 0 .8em #ff3f3f;
+  }
+  50%{
+    background-position: 60%;
+    box-shadow: 0 0 .8em #200101;
+  }
+  100%{
+    background-position: 100%;
+    box-shadow: 0 0 .8em #f7dadf;
+  }
 }
-
-.button_for_copy {
-  margin-top: 20px;
-  background-color: transparent;
-} */

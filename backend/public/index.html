@@ -26,7 +26,9 @@
 <body>
     <div class="header">
         <div style="float: right;">
-            <button class="theme_switch" id="theme-toggle">Сменить тему</button>
+            <button class="theme_switch" id="theme-toggle">
+                <i id="theme-icon" class="fas fa-sun"></i>
+            </button>
         </div>
     </div>
     <div class="neon-border">
@@ -129,8 +131,23 @@
                 </div>
     </div>
     <script>
-        document.getElementById('theme-toggle').addEventListener('click', function () {
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            // Переключение темы
             document.body.classList.toggle('dark-theme');
+            var buttons = document.getElementsByTagName('button');
+            for(var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.toggle('dark-theme');
+            }
+
+            // Переключение иконки
+            var themeIcon = document.getElementById('theme-icon');
+            if (themeIcon.classList.contains('fa-sun')) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
         });
         
         function toggleInputType(formType) {
