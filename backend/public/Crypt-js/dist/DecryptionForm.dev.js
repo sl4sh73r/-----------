@@ -65,15 +65,17 @@ document.getElementById('decryptionForm').addEventListener('submit', function (e
       if (!downloadDecryptButton) {
         downloadDecryptButton = document.createElement('button');
         downloadDecryptButton.id = 'downloadDecryptButton';
-        downloadDecryptButton.textContent = 'DownloadDecrypt';
-        document.body.appendChild(downloadDecryptButton);
+        downloadDecryptButton.className = 'download-button'; // Добавьте класс
+
+        downloadDecryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
       }
 
       downloadDecryptButton.onclick = function () {
         a.click();
       };
 
-      document.body.appendChild(downloadDecryptButton);
+      var buttonContainer = document.querySelector('.button-decrypt-container');
+      buttonContainer.appendChild(downloadDecryptButton);
     })["catch"](function (error) {
       console.error('Произошла ошибка:', error);
     });

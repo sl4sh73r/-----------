@@ -55,16 +55,19 @@ document.getElementById('decryptionForm').addEventListener('submit', function(ev
 
             // Создаем кнопку для скачивания файла
         let downloadDecryptButton = document.getElementById('downloadDecryptButton');
-            if (!downloadDecryptButton) {
-                downloadDecryptButton = document.createElement('button');
-                downloadDecryptButton.id = 'downloadDecryptButton';
-                downloadDecryptButton.textContent = 'DownloadDecrypt';
-                document.body.appendChild(downloadDecryptButton);
-            }
-            downloadDecryptButton.onclick = function() {
-                a.click();
-            };
-            document.body.appendChild(downloadDecryptButton);
+        if (!downloadDecryptButton) {
+            downloadDecryptButton = document.createElement('button');
+            downloadDecryptButton.id = 'downloadDecryptButton';
+            downloadDecryptButton.className = 'download-button'; // Добавьте класс
+            downloadDecryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
+        }
+
+        downloadDecryptButton.onclick = function() {
+            a.click();
+        };
+
+        const buttonContainer = document.querySelector('.button-decrypt-container');
+        buttonContainer.appendChild(downloadDecryptButton);
         })
         .catch(error => {
             console.error('Произошла ошибка:', error);

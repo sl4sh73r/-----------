@@ -18,6 +18,7 @@ document.getElementById('encryptionForm').addEventListener('submit', function (e
       }
 
       return response.json();
+      console.log("Success-upload-on-site");
     }).then(function (data) {
       var key = formData.get('key');
       var algorithm = formData.get('algorithm');
@@ -54,22 +55,23 @@ document.getElementById('encryptionForm').addEventListener('submit', function (e
       a.href = url;
       a.download = originalFileName + "_" + algorithm + ".enc"; // Имя файла для скачивания
 
-      document.body.appendChild(a); // Создаем кнопку для скачивания файла
-
+      document.body.appendChild(a);
       var downloadEncryptButton = document.getElementById('downloadEncryptButton');
 
       if (!downloadEncryptButton) {
         downloadEncryptButton = document.createElement('button');
         downloadEncryptButton.id = 'downloadEncryptButton';
-        downloadEncryptButton.textContent = 'DownloadCrypt';
-        document.body.appendChild(downloadEncryptButton);
+        downloadEncryptButton.className = 'download-button'; // Добавьте класс
+
+        downloadEncryptButton.innerHTML = '<i class="fas fa-download"></i>'; // Используйте иконку вместо текста
       }
 
       downloadEncryptButton.onclick = function () {
         a.click();
       };
 
-      document.body.appendChild(downloadEncryptButton);
+      var buttonContainer = document.querySelector('.button-encrypt-container');
+      buttonContainer.appendChild(downloadEncryptButton);
     })["catch"](function (error) {
       console.error('Произошла ошибка:', error);
     });

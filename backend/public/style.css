@@ -191,6 +191,10 @@ body.dark-theme {
   margin-top: 10px;
 }
 
+.button-encrypt-container, .button-decrypt-container {
+  display: flex;
+  justify-content: space-between;
+}
 
 
 .encrypt_button, .decrypt_button {
@@ -211,6 +215,28 @@ body.dark-theme {
   align-items: center; /* Центрируйте иконку по вертикали */
 }
 
+
+.download-button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 50px; /* Установите ширину кнопки */
+  height: 50px; /* Установите высоту кнопки */
+  padding: 0; /* Удалите отступы, чтобы иконка занимала всю область кнопки */
+  display: flex; /* Используйте flexbox для центрирования иконки */
+  justify-content: center; /* Центрируйте иконку по горизонтали */
+  align-items: center; /* Центрируйте иконку по вертикали */
+}
+
+.download-button i {
+  /* Здесь добавьте свои стили для иконки, если они отличаются от стилей кнопки */
+}
 
 
 /* Изменение цвета иконки и добавление тени */
