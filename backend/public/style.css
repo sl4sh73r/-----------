@@ -140,13 +140,56 @@ body.dark-theme {
   }
 }
 
+
+.encryption-result {
+  position: relative;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: rgba(243, 243, 243, 0.5);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.encryption-result-text {
+  color: #333;
+  word-wrap: break-word;
+  max-height: 100px; 
+  overflow: auto; 
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  
+}
+.expand-button {
+  display: inline-block;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9em;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.expand-button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.expand-button:before,
+.expand-button:after {
+  content: '...';
+  margin: 0 5px;
+}
+
 #decryptionResult {
   position: relative; /* Делает блок относительно позиционированным, чтобы кнопка могла быть абсолютно позиционирована относительно него */
 }
 
-#encryptionResult {
-  position: relative; /* Делает блок относительно позиционированным, чтобы кнопка могла быть абсолютно позиционирована относительно него */
-}
+
 
 .copy-btn {
   font-size: 0.8em; /* Уменьшает размер иконки */

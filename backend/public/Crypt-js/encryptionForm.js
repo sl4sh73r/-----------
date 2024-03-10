@@ -98,12 +98,36 @@ document.getElementById('encryptionForm').addEventListener('submit', function(ev
             method: 'POST',
             body: JSON.stringify({ plaintext, key, algorithm, inputTypeEncryption }),
             headers: { 'Content-Type': 'application/json' }
-        })
-        .then(response => response.json())
-        .then(data => {
+          })
+          .then(response => response.json())
+          .then(data => {
             const encryptionResult = document.getElementById('encryptionResult');
+            encryptionResult.className = 'encryption-result'; 
+          
             const encryptionResultText = document.getElementById('encryptionResultText');
-            encryptionResultText.textContent = data.encryptedText;
+            encryptionResultText.className = 'encryption-result-text'; 
+          
+            // Ограничиваем длину текста
+            const maxLength = 100; // Максимальная длина текста
+            let trimmedText = data.encryptedText;
+            if (trimmedText.length > maxLength) {
+              trimmedText = trimmedText.substring(0, maxLength) + "...";
+            }
+            encryptionResultText.textContent = trimmedText;
+          
+            // Если текст слишком длинный, добавляем кнопку для разворачивания текста
+            if (data.encryptedText.length > maxLength) {
+              const expandButton = document.createElement('button');
+              expandButton.textContent = 'Показать больше';
+              expandButton.className = 'expand-button'; // Используем новый класс
+              expandButton.onclick = function() {
+                // При нажатии на кнопку показываем весь текст и скрываем кнопку
+                encryptionResultText.textContent = data.encryptedText;
+                expandButton.style.display = 'none';
+              };
+              encryptionResult.appendChild(expandButton);
+            }
+          
             encryptionResult.style.display = 'block';
         })
 .catch(error => {

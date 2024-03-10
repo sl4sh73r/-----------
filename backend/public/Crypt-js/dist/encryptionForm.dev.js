@@ -120,8 +120,34 @@ document.getElementById('encryptionForm').addEventListener('submit', function (e
       return response.json();
     }).then(function (data) {
       var encryptionResult = document.getElementById('encryptionResult');
+      encryptionResult.className = 'encryption-result';
       var encryptionResultText = document.getElementById('encryptionResultText');
-      encryptionResultText.textContent = data.encryptedText;
+      encryptionResultText.className = 'encryption-result-text'; // Ограничиваем длину текста
+
+      var maxLength = 100; // Максимальная длина текста
+
+      var trimmedText = data.encryptedText;
+
+      if (trimmedText.length > maxLength) {
+        trimmedText = trimmedText.substring(0, maxLength) + "...";
+      }
+
+      encryptionResultText.textContent = trimmedText; // Если текст слишком длинный, добавляем кнопку для разворачивания текста
+
+      if (data.encryptedText.length > maxLength) {
+        var expandButton = document.createElement('button');
+        expandButton.textContent = 'Показать больше';
+        expandButton.className = 'expand-button'; // Используем новый класс
+
+        expandButton.onclick = function () {
+          // При нажатии на кнопку показываем весь текст и скрываем кнопку
+          encryptionResultText.textContent = data.encryptedText;
+          expandButton.style.display = 'none';
+        };
+
+        encryptionResult.appendChild(expandButton);
+      }
+
       encryptionResult.style.display = 'block';
     })["catch"](function (error) {
       console.error('Произошла ошибка:', error);
