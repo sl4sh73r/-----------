@@ -22,7 +22,7 @@ a {
 body.dark-theme {
   /* background-color: #222222;  */
   color: #ffffff;
-  accent-color: #00a7ff;
+  accent-color: #ff0d00;
   height: 100%;
   background: rgb(202, 55, 86);
   background: linear-gradient(135deg, rgba(202, 55, 86,1) 0%, rgba(10, 10, 12,1) 25%, rgba(10, 10, 12,1) 75%, rgba(247, 218, 223,1) 100%);
@@ -69,6 +69,88 @@ body.dark-theme {
     margin-right: 5%;
 }
 
+.form-group-select {
+  position: relative;
+  width: 50%; 
+  margin-bottom: 20px;
+}
+
+.form-control-select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 25px; 
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+  color: #007BFF;
+  font-size: 16px;
+  appearance: none; 
+  background: #fff;
+}
+
+.form-control-select:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+.form-control-select:hover {
+  border-color: #007BFF;
+}
+
+.form-control-icon-select {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  color: #007BFF;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.form-control-text {
+    width: 85%; /* делает текстовое поле шире */
+    resize: none; /* запрещает изменение размера */
+    overflow: auto; /* добавляет полосы прокрутки, если текст выходит за границы textarea */
+    border-radius: 5px; /* скругляет углы */
+    padding: 25px; /* добавляет отступ внутри textarea */
+    font-size: 16px; /* устанавливает размер шрифта */
+    border: 1px solid #ccc; /* добавляет границу */
+}
+.form-group-key {
+  position: relative; /* позволяет позиционировать псевдоэлементы относительно этого элемента */
+}
+
+.form-group-key .form-control {
+  width: 50%; /* делает текстовое поле короче */
+  transition: box-shadow 0.3s ease; /* добавляет анимацию к тени */
+  border: none; /* убирает рамку */
+  box-sizing: border-box; /* учитывает границы и отступы в размерах поля ввода */
+}
+
+.form-group-key::after {
+  content: ""; /* необходимо для отображения псевдоэлемента */
+  position: absolute; /* позволяет позиционировать псевдоэлемент */
+  left: 5%; /* центрирует полосу по горизонтали */
+  bottom: -2px; /* сдвигает полосу немного вниз */
+  width: 30%; /* делает полосу короче */
+  height: 2px; /* устанавливает толщину полосы */
+  background: #000; /* делает полосу черной */
+  transition: width 0.3s ease, background 0.3s ease, left 0.3s ease; /* добавляет анимацию к ширине, цвету полосы и положению слева */
+}
+
+
+.form-group-key:focus-within::after {
+  width: 50%; /* увеличивает ширину полосы при фокусе на поле ввода */
+  left: 0; /* перемещает полосу влево при фокусе на поле ввода */
+  background: #007BFF; /* делает полосу синей при фокусе на поле ввода */
+}
+
+.form-group-key:focus, .form-group-key:focus-within, .form-group-key .form-control:focus {
+  outline: none;
+}
+.form-group-key .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 .container_2 {
     width: 40%;

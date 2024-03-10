@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
@@ -21,6 +22,25 @@
         }
     </script>
     <script src="3D-element/sphere.js" type="module"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#inputTypeEncryption").focus(function(){
+            $("#icon-encryption").css("transform", "translateY(-50%) rotate(180deg)");
+        });
+        $("#inputTypeEncryption").blur(function(){
+            $("#icon-encryption").css("transform", "translateY(-50%)");
+        });
+
+        $("#inputTypeDecryption").focus(function(){
+            $("#icon-decryption").css("transform", "translateY(-50%) rotate(180deg)");
+        });
+        $("#inputTypeDecryption").blur(function(){
+            $("#icon-decryption").css("transform", "translateY(-50%)");
+        });
+    });
+    </script>
+    
     
 </head>
 <body>
@@ -40,17 +60,16 @@
                 <h1 class ="header1" 
                 style="text-align: center;">Encryption</h1>
                 <form class="encryptionForm" id="encryptionForm" enctype='multipart/form-data'>
-                    <div class="form-group">
-                        <label for="inputTypeEncryption">Choose input type:</label>
-                        <select class="form-control" id="inputTypeEncryption" name="inputTypeEncryption" onchange="toggleInputType('encryption')">
-                        <option disabled selected value> -- Выберите вариант -- </option>    
-                        <option value="text">Text</option>
-                        <option value="file">File</option>
+                    <div class="form-group-select">
+                        <select class="form-control form-control-select" id="inputTypeEncryption" name="inputTypeEncryption" onchange="toggleInputType('encryption')">
+                            <option disabled selected value> -- Select -- </option>    
+                            <option value="text">✏️ Text</option>
+                            <option value="file">📁 File</option>
                         </select>
+                        <i id="icon-encryption" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
                     <div class="form-group" id="encryptionTextGroup" style="display: none;">
-                        <label for="plaintext">Enter Text:</label>
-                        <input type="text" class="form-control" id="plaintext" name="plaintext">
+                        <textarea class="form-control-text" id="plaintext" name="plaintext" placeholder="Enter plain text here..."></textarea>
                     </div>
                     <div class="form-group upload-container" id="encryptionFileGroup" style="display: none;">
                         <div id="drop_zone" class="drop-zone">
@@ -63,9 +82,8 @@
                             <label for="fileEncryption" class="upload-label"><i class="fas fa-upload"></i></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="key">Enter Key:</label>
-                        <input type="text" class="form-control" id="key" name="key" required>
+                    <div class="form-group form-group-key">
+                        <input type="password" class="form-control" id="key" name="key" required placeholder="🔑">
                     </div>
                     <div class="form-group">
                         <label for="algorithm">Choose an algorithm:</label>
@@ -98,18 +116,19 @@
             <div class="container_2">
                 <h1 class="header1" style="text-align: center;">Decryption</h1>
                 <form id="decryptionForm">
-                    <div class="form-group">
-                        <label for="inputTypeDecryption">Choose input type:</label>
-                        <select class="form-control" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
-                        <option disabled selected value> -- Выберите вариант -- </option>
-                        <option value="text">Text</option>
-                        <option value="file">File</option>
+                    <div class="form-group-select">
+                        <select class="form-control form-control-select" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
+                            <option disabled selected value> -- Выберите вариант -- </option>
+                            <option value="text">✏️ Text</option>
+                            <option value="file">📁 File</option>
                         </select>
+                        <i id="icon-decryption" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
+
                     <div class="form-group" id="decryptionTextGroup" style="display: none;">
-                        <label for="encryptedtext">Enter Encrypted Text:</label>
-                        <input type="text" class="form-control" id="encryptedtext" name="encryptedtext">
+                        <textarea class="form-control-text" id="encryptedtext" name="encryptedtext" placeholder="Enter encrypted text here..."></textarea>
                     </div>
+
                     <div class="form-group upload-container" id="decryptionFileGroup" style="display: none;">
                         <div id="drop_zone_decryption" class="drop-zone">
                             Drag & Drop your file here
