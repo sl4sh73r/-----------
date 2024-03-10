@@ -99,16 +99,47 @@ document.getElementById('decryptionForm').addEventListener('submit', function(ev
         const encryptedtext = formData.get('encryptedtext');
 
         fetch('/decrypt', {
-            method: 'POST',
-            body: JSON.stringify({ encryptedtext, decryptionkey, decryptionalgorithm, inputTypeDecryption }),
-            headers: { 'Content-Type': 'application/json' }
+        method: 'POST',
+        body: JSON.stringify({ encryptedtext, decryptionkey, decryptionalgorithm, inputTypeDecryption }),
+        headers: { 'Content-Type': 'application/json' }
         })
         .then(response => response.json())
         .then(data => {
-            const decryptionResult = document.getElementById('decryptionResult');
-            const decryptionResultText = document.getElementById('decryptionResultText');
+        const decryptionResult = document.getElementById('decryptionResult');
+        decryptionResult.className = 'decryption-result'; 
+
+        const decryptionResultText = document.getElementById('decryptionResultText');
+        decryptionResultText.className = 'decryption-result-text'; 
+
+        // Ограничиваем длину текста
+        const maxLength = 100; // Максимальная длина текста
+        let trimmedText = data.decryptedText;
+        if (trimmedText.length > maxLength) {
+            trimmedText = trimmedText.substring(0, maxLength) + "...";
+        }
+        decryptionResultText.textContent = trimmedText;
+
+       // Если текст слишком длинный, добавляем или обновляем кнопку для разворачивания текста
+        let expandButton = document.querySelector('.expand-button');
+        if (data.decryptedText.length > maxLength) {
+        if (!expandButton) {
+            expandButton = document.createElement('button');
+            expandButton.className = 'expand-button'; // Используем новый класс
+            decryptionResult.appendChild(expandButton);
+        }
+        expandButton.textContent = 'Показать больше';
+        expandButton.style.display = 'inline-block';
+        expandButton.onclick = function() {
+            // При нажатии на кнопку показываем весь текст и скрываем кнопку
             decryptionResultText.textContent = data.decryptedText;
-            decryptionResult.style.display = 'block';
+            expandButton.style.display = 'none';
+        };
+        } else if (expandButton) {
+        // Если текст не слишком длинный и кнопка существует, скрываем кнопку
+        expandButton.style.display = 'none';
+        }
+
+        decryptionResult.style.display = 'block';
         })
         .catch(error => {
             console.error('Произошла ошибка:', error);

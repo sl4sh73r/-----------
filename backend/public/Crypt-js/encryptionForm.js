@@ -115,18 +115,25 @@ document.getElementById('encryptionForm').addEventListener('submit', function(ev
             }
             encryptionResultText.textContent = trimmedText;
           
-            // Если текст слишком длинный, добавляем кнопку для разворачивания текста
-            if (data.encryptedText.length > maxLength) {
-              const expandButton = document.createElement('button');
-              expandButton.textContent = 'Показать больше';
-              expandButton.className = 'expand-button'; // Используем новый класс
-              expandButton.onclick = function() {
-                // При нажатии на кнопку показываем весь текст и скрываем кнопку
-                encryptionResultText.textContent = data.encryptedText;
-                expandButton.style.display = 'none';
-              };
-              encryptionResult.appendChild(expandButton);
-            }
+        // Если текст слишком длинный, добавляем или обновляем кнопку для разворачивания текста
+        let expandButton = document.querySelector('.expand-button');
+        if (data.encryptedText.length > maxLength) {
+        if (!expandButton) {
+            expandButton = document.createElement('button');
+            expandButton.className = 'expand-button'; // Используем новый класс
+            encryptionResult.appendChild(expandButton);
+        }
+        expandButton.textContent = 'Показать больше';
+        expandButton.style.display = 'inline-block';
+        expandButton.onclick = function() {
+            // При нажатии на кнопку показываем весь текст и скрываем кнопку
+            encryptionResultText.textContent = data.encryptedText;
+            expandButton.style.display = 'none';
+        };
+        } else if (expandButton) {
+        // Если текст не слишком длинный и кнопка существует, скрываем кнопку
+        expandButton.style.display = 'none';
+        }
           
             encryptionResult.style.display = 'block';
         })

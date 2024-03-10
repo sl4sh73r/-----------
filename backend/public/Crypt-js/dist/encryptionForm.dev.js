@@ -132,20 +132,29 @@ document.getElementById('encryptionForm').addEventListener('submit', function (e
         trimmedText = trimmedText.substring(0, maxLength) + "...";
       }
 
-      encryptionResultText.textContent = trimmedText; // Если текст слишком длинный, добавляем кнопку для разворачивания текста
+      encryptionResultText.textContent = trimmedText; // Если текст слишком длинный, добавляем или обновляем кнопку для разворачивания текста
+
+      var expandButton = document.querySelector('.expand-button');
 
       if (data.encryptedText.length > maxLength) {
-        var expandButton = document.createElement('button');
+        if (!expandButton) {
+          expandButton = document.createElement('button');
+          expandButton.className = 'expand-button'; // Используем новый класс
+
+          encryptionResult.appendChild(expandButton);
+        }
+
         expandButton.textContent = 'Показать больше';
-        expandButton.className = 'expand-button'; // Используем новый класс
+        expandButton.style.display = 'inline-block';
 
         expandButton.onclick = function () {
           // При нажатии на кнопку показываем весь текст и скрываем кнопку
           encryptionResultText.textContent = data.encryptedText;
           expandButton.style.display = 'none';
         };
-
-        encryptionResult.appendChild(expandButton);
+      } else if (expandButton) {
+        // Если текст не слишком длинный и кнопка существует, скрываем кнопку
+        expandButton.style.display = 'none';
       }
 
       encryptionResult.style.display = 'block';
