@@ -14,6 +14,14 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
     var dropZones = document.querySelectorAll('.drop-zone');
     dropZones.forEach(dropZone => dropZone.classList.toggle('dark-theme'));
 
+    // Добавление переключения темы для .form-group-key
+    var formGroupKeys = document.querySelectorAll('.form-group-key');
+    formGroupKeys.forEach(formGroupKey => formGroupKey.classList.toggle('dark-theme'));
+
+    // Добавление переключения темы для .form-group-select
+    var formGroupSelects = document.querySelectorAll('.form-group-select');
+    formGroupSelects.forEach(formGroupSelect => formGroupSelect.classList.toggle('dark-theme'));
+
     // Переключение иконки
     var themeIcon = document.getElementById('theme-icon');
     if (themeIcon.classList.contains('fa-sun')) {

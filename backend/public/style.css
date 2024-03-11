@@ -107,6 +107,22 @@ body.dark-theme {
   transition: transform 0.3s ease;
 }
 
+.form-group-select.dark-theme .form-control-select {
+  color: #fff; /* делает текст белым */
+  background: #333; /* делает фон темным */
+  border-color: #fff; /* делает обводку кроваво красной */
+}
+
+.form-group-select.dark-theme .form-control-select:focus,
+.form-group-select.dark-theme .form-control-select:hover {
+  border-color: #fff; /* делает обводку кроваво красной при фокусе или наведении */
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25); /* делает тень кроваво красной при фокусе или наведении */
+}
+
+.form-group-select.dark-theme .form-control-icon-select {
+  color: #f00; /* делает иконку кроваво красной */
+}
+
 .form-control-text {
     width: 85%; /* делает текстовое поле шире */
     resize: none; /* запрещает изменение размера */
@@ -123,6 +139,7 @@ body.dark-theme {
 .form-group-key .form-control:focus {
   outline: none;
   box-shadow: none;
+  background: transparent; /* делает фон прозрачным */
 }
 
 .form-group-key .form-control {
@@ -130,6 +147,7 @@ body.dark-theme {
   transition: box-shadow 0.3s ease; /* добавляет анимацию к тени */
   border: none; /* убирает рамку */
   box-sizing: border-box; /* учитывает границы и отступы в размерах поля ввода */
+  background: transparent; /* делает фон прозрачным */
 }
 
 .form-group-key::after {
@@ -171,6 +189,22 @@ body.dark-theme {
   transition: right 0.3s ease; /* добавляет анимацию к положению справа */
 }
 
+
+.form-group-key.dark-theme .form-control {
+  color: #fff; /* делает текст светлым */
+}
+
+.form-group-key.dark-theme::after {
+  background: #fff; /* делает короткую полосу белой */
+}
+
+.form-group-key.dark-theme:focus-within::after {
+  background: #f00; /* делает удлиняющуюся полосу красной */
+}
+
+.form-group-key.dark-theme.has-text::after {
+  background: #f00; /* делает удлиняющуюся полосу красной, если в поле ввода есть текст */
+}
 
 
 .container_2 {
