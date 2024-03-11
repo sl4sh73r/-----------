@@ -73,6 +73,7 @@ body.dark-theme {
   position: relative;
   width: 50%; 
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .form-control-select {
@@ -119,6 +120,11 @@ body.dark-theme {
   position: relative; /* позволяет позиционировать псевдоэлементы относительно этого элемента */
 }
 
+.form-group-key .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .form-group-key .form-control {
   width: 50%; /* делает текстовое поле короче */
   transition: box-shadow 0.3s ease; /* добавляет анимацию к тени */
@@ -129,11 +135,10 @@ body.dark-theme {
 .form-group-key::after {
   content: ""; /* необходимо для отображения псевдоэлемента */
   position: absolute; /* позволяет позиционировать псевдоэлемент */
-  left: 5%; /* центрирует полосу по горизонтали */
   bottom: -2px; /* сдвигает полосу немного вниз */
   width: 30%; /* делает полосу короче */
-  height: 2px; /* устанавливает толщину полосы */
-  background: #000; /* делает полосу черной */
+  height: 1px; /* устанавливает толщину полосы */
+  background: #ccc; /* делает полосу черной */
   transition: width 0.3s ease, background 0.3s ease, left 0.3s ease; /* добавляет анимацию к ширине, цвету полосы и положению слева */
 }
 
@@ -144,13 +149,29 @@ body.dark-theme {
   background: #007BFF; /* делает полосу синей при фокусе на поле ввода */
 }
 
+.form-group-key.has-text::after {
+  width: 50%; /* сохраняет длину полосы, если в поле ввода есть текст */
+  background: #007BFF; /* делает полосу синей, если в поле ввода есть текст */
+}
+
+.form-group-key:focus-within .toggle-password {
+  left: 50%; /* сдвигает иконку влево на 50% ширины .form-group-key при фокусе на поле ввода */
+}
+
 .form-group-key:focus, .form-group-key:focus-within, .form-group-key .form-control:focus {
   outline: none;
 }
-.form-group-key .form-control:focus {
-  outline: none;
-  box-shadow: none;
+
+.toggle-password {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: right 0.3s ease; /* добавляет анимацию к положению справа */
 }
+
+
 
 .container_2 {
     width: 40%;
@@ -164,10 +185,13 @@ body.dark-theme {
     margin-left: 0%;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
+/* TODO:Поменять шрифты нахуй */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
 .header1 {
-  font-family: 'Chilanka', cursive;
+  padding-right: 50%;
+  font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 2.75rem;
@@ -179,7 +203,6 @@ body.dark-theme {
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6;
   animation: lightning 1s linear infinite;
-  padding: 20px;
   -webkit-text-stroke: 1px black; /* Тонкая черная обводка */
 }
 
@@ -192,10 +215,16 @@ body.dark-theme {
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
+/* 
+Tailwind CSS
+ */
+
+/* TODO:Поменять шрифты нахуй */
+/* Скачать шрифты woff2 */
 
 .header1.dark-theme {
-  font-family: 'Chilanka', cursive;
+  padding-right: 50%;
+  font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 2.75rem;
@@ -207,7 +236,6 @@ body.dark-theme {
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 5px #606060, 0 0 10px #606060;
   animation: bounce 30s linear 1;
-  padding: 20px;
   -webkit-text-stroke: 1px #200101; /* Тонкая черная обводка */
 }
 
@@ -222,18 +250,19 @@ body.dark-theme {
   }
 }
 
-
-.encryption-result {
+.encryption-result,.decryption-result {
+  width: 85%; /* делает текстовое поле шире */
+  border-radius: 5px; /* скругляет углы */
+  padding: 25px; /* добавляет отступ внутри textarea */
+  font-size: 16px; /* устанавливает размер шрифта */
+  border: 1px solid #ccc; /* добавляет границу */
   position: relative;
-  padding: 20px;
   margin-top: 20px;
   border-radius: 5px;
-  background: rgba(243, 243, 243, 0.5);
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   font-family: 'Courier New', Courier, monospace;
 }
 
-.encryption-result-text {
+.encryption-result-text,.decryption-result-text {
   color: #333;
   word-wrap: break-word;
   max-height: 100px; 
@@ -243,25 +272,6 @@ body.dark-theme {
   background: rgba(255, 255, 255, 0.8);
 }
 
-.decryption-result {
-  position: relative;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 5px;
-  background: rgba(243, 243, 243, 0.5);
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.decryption-result-text {
-  color: #333;
-  word-wrap: break-word;
-  max-height: 100px; 
-  overflow: auto; 
-  padding: 10px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.8);
-}
 
 .expand-button {
   display: inline-block;
