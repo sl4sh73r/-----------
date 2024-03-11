@@ -1,0 +1,161 @@
+.download-button.dark-theme {
+    background-image: linear-gradient(90deg, #ff3f3f, #200101, #606060, #f7dadf);
+    color: #fff;
+}
+
+body.dark-theme {
+    /* background-color: #222222;  */
+    color: #ffffff;
+    accent-color: #ff0d00;
+    min-height: 100vh;
+    background: rgb(202, 55, 86);
+    background: linear-gradient(135deg, rgba(202, 55, 86,1) 0%, rgba(10, 10, 12,1) 25%, rgba(10, 10, 12,1) 75%, rgba(247, 218, 223,1) 100%);
+  }
+
+  body.dark-theme #theme-icon {
+    color: #fff; /* Белый цвет для темной темы */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Тень для улучшения видимости */
+  }
+
+  .sphereCanvas.dark-theme {
+
+    --sphere-color1: #ff3f3f;
+    --sphere-color2: #200101;
+    --ring-color: rgb(192, 180, 180);
+    --sphere-radius: 2;
+    --sphere-width-segments: 325;
+    --sphere-height-segments: 325;
+    --camera-position-z: 5;
+    --renderer-width: 400;
+    --renderer-height: 375;
+  }
+
+  .form-group-select.dark-theme .form-control-select {
+    color: #fff; /* делает текст белым */
+    background: #333; /* делает фон темным */
+    border-color: #fff; /* делает обводку кроваво красной */
+  }
+  
+  .form-group-select.dark-theme .form-control-select:focus,
+  .form-group-select.dark-theme .form-control-select:hover {
+    border-color: #fff; /* делает обводку кроваво красной при фокусе или наведении */
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25); /* делает тень кроваво красной при фокусе или наведении */
+  }
+  
+  .form-group-select.dark-theme .form-control-icon-select {
+    color: #f00; /* делает иконку кроваво красной */
+  }
+
+  .form-control-text.dark-theme {
+    background-color: #333; /* делает фон темным */
+    color: #fff; /* делает текст светлым */
+    border: 1px solid #fff; /* делает границу светлой */
+  }
+
+  .form-group-key.dark-theme .form-control {
+    color: #fff; /* делает текст светлым */
+  }
+  
+  .form-group-key.dark-theme::after {
+    background: #fff; /* делает короткую полосу белой */
+  }
+  
+  .form-group-key.dark-theme:focus-within::after {
+    background: #f00; /* делает удлиняющуюся полосу красной */
+  }
+  
+  .form-group-key.dark-theme.has-text::after {
+    background: #f00; /* делает удлиняющуюся полосу красной, если в поле ввода есть текст */
+  }
+
+
+
+.header1.dark-theme {
+    /* padding-right: 50%; */
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.75rem;
+    line-height: 1.2;
+    cursor: default;
+    background: linear-gradient(270deg, #ff3f3f, #200101, #606060, #f7dadf);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px #606060, 0 0 10px #606060;
+    animation: bounce 30s linear 1;
+    -webkit-text-stroke: 1px #200101; /* Тонкая черная обводка */
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: scale(1);
+      text-shadow: 0 0 5px #606060, 0 0 10px #606060, 0 0 15px #606060, 0 0 20px #606060;
+    }
+    50% {
+      transform: scale(1.1);
+      text-shadow: 0 0 10px #8B0000, 0 0 20px #8B0000, 0 0 30px #8B0000, 0 0 40px #8B0000;
+    }
+  }
+
+  .drop-zone.dark-theme {
+    border: 2px solid #444; /* Изменяем стиль границы на solid */
+    border-radius: 15px; /* Добавляем скругление границ */
+    box-shadow: 0 0 10px rgb(90, 11, 2); /* Убираем прозрачность в box-shadow */
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    outline: none; /* Убираем рамки */
+    color: #ddd; /* Цвет текста для темной темы */
+    background-color: #222; /* Цвет фона для темной темы */
+  }
+
+  .copy-btn.dark-theme{
+    font-size: 0.8em; /* Уменьшает размер иконки */
+    z-index: 100;
+    cursor: pointer;
+    font-weight: 100;
+    border: none;
+    background: none;
+    padding: 0;
+    position: absolute; /* Позиционирует кнопку относительно ближайшего позиционированного предка (в данном случае, #decryptionResult) */
+    top: 0; /* Позиционирует кнопку в верхнем углу */
+    right: 0; /* Позиционирует кнопку в правом углу */
+    width: 35px; /* Уменьшает ширину кнопки */
+    height: 35px; /* Уменьшает высоту кнопки */
+  }
+
+  /* Стили для темной темы */
+.theme_switch.dark-theme {
+    background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+    color: #fff; /* Белый цвет текста для темной темы */
+  }
+
+  button.theme_switch.dark-theme:hover {
+    animation: none;
+  }
+
+  button.dark-theme {
+    background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+    color: #ffffff;
+  }
+  
+  button.dark-theme:hover {
+    animation: animate-dark 3s ease-out infinite;
+    text-shadow:0 0 .5em rgb(0, 0, 0, 0.8);
+  }
+  
+  @keyframes animate-dark {
+    0%{
+      background-position : 0%;
+      box-shadow: 0 0 .8em #ff3f3f;
+    }
+    50%{
+      background-position: 60%;
+      box-shadow: 0 0 .8em #200101;
+    }
+    100%{
+      background-position: 100%;
+      box-shadow: 0 0 .8em #f7dadf;
+    }
+  }

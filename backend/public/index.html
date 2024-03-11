@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunin-lab1</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/forms.css">
+    <link rel="stylesheet" href="styles/light-theme.css">
+    <link rel="stylesheet" href="styles/dark-theme.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -23,24 +26,7 @@
     </script>
     <script src="3D-element/sphere.js" type="module"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $("#inputTypeEncryption").focus(function(){
-            $("#icon-encryption").css("transform", "translateY(-50%) rotate(180deg)");
-        });
-        $("#inputTypeEncryption").blur(function(){
-            $("#icon-encryption").css("transform", "translateY(-50%)");
-        });
-
-        $("#inputTypeDecryption").focus(function(){
-            $("#icon-decryption").css("transform", "translateY(-50%) rotate(180deg)");
-        });
-        $("#inputTypeDecryption").blur(function(){
-            $("#icon-decryption").css("transform", "translateY(-50%)");
-        });
-    });
-    </script>
-    
+    <script src="actionLogic/selectActionJquery.js"></script>
     
 </head>
 <body>
@@ -90,8 +76,8 @@
 
                     <!-- Key Input -->
                     <div class="form-group form-group-key">
-                        <input type="password" class="form-control" id="key" name="key" required placeholder="🔑">
-                        <i class="toggle-password fas fa-eye" onclick="togglePasswordVisibility()"></i>
+                        <input type="password" class="form-control" id="key" name="key" required placeholder="🔑" oninput="checkInputValue('key', 'icon1')">
+                        <i class="toggle-password fas fa-eye" id="icon1" onclick="togglePasswordVisibility('key', 'icon1')"></i>
                     </div>
 
                     <!-- Algorithm Selection -->
@@ -127,19 +113,22 @@
             <div class="container_2">
                 <h1 class="header1" style="text-align: center;">Decryption</h1>
                 <form id="decryptionForm">
+                    <!-- Input Type Selection -->
                     <div class="form-group-select">
                         <select class="form-control form-control-select" id="inputTypeDecryption" name="inputTypeDecryption" onchange="toggleInputType('decryption')">
-                            <option disabled selected value> -- Выберите вариант -- </option>
+                            <option disabled selected value> -- Select input Type -- </option>
                             <option value="text">✏️ Text</option>
                             <option value="file">📁 File</option>
                         </select>
                         <i id="icon-decryption" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
-
+                    
+                    <!-- Text Input -->
                     <div class="form-group" id="decryptionTextGroup" style="display: none;">
                         <textarea class="form-control-text" id="encryptedtext" name="encryptedtext" placeholder="Enter encrypted text here..."></textarea>
                     </div>
 
+                    <!-- File Input -->
                     <div class="form-group upload-container" id="decryptionFileGroup" style="display: none;">
                         <div id="drop_zone_decryption" class="drop-zone">
                             Drag & Drop your file here
@@ -151,18 +140,23 @@
                             <label for="fileDecryption" class="upload-label"><i class="fas fa-upload"></i></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="decryptionkey">Enter Key:</label>
-                        <input type="text" class="form-control" id="decryptionkey" name="decryptionkey" required>
+
+                    <!-- Key Input -->
+                    <div class="form-group form-group-key">
+                        <input type="password" class="form-control" id="decryptionkey" name="decryptionkey" required placeholder="🔑" oninput="checkInputValue('decryptionkey', 'icon2')">
+                        <i class="toggle-password fas fa-eye" id="icon2" onclick="togglePasswordVisibility('decryptionkey', 'icon2')"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="decryptionalgorithm">Choose an algorithm:</label>
-                        <select class="form-control" id="decryptionalgorithm" name="decryptionalgorithm">
-                        <option value="blowfish">Blowfish</option>
-                        <option value="Grasshopper">Grasshopper</option>
-                        <option value="aes">AES</option>
-                        <!-- Add more options as needed -->
+
+                    <!-- Algorithm Selection -->
+                    <div class="form-group-select">
+                        <select class="form-control form-control-select" id="decryptionalgorithm" name="decryptionalgorithm">
+                            <option disabled selected value> -- Select Derypt algorithm-- </option>
+                            <option value="blowfish">Blowfish</option>
+                            <option value="Grasshopper">Grasshopper</option>
+                            <option value="aes">AES</option>
+                            <!-- Add more options as needed -->
                         </select>
+                        <i id="icon-algorithm" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
 
                     <div class="button-decrypt-container">
@@ -174,8 +168,9 @@
                     
                 </form>
                 <div id="decryptionResult" class="alert alert-info" role="alert" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="result_box" style="justify-content: space-between; word-wrap: break-word;">
                         <span id="decryptionResultText"></span>
+                        </br>
                         <button class="btn btn-light-primary copy-btn" id="copyDecryptionResult">
                             <i class="fas fa-copy"></i> <!-- Иконка копирования -->
                         </button>
@@ -184,39 +179,7 @@
     </div>
     <script src="actionLogic/theme-swich.js"></script>
     <script src="actionLogic/drug-n-drop.js"></script>
-    <script>
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById('key');
-            var toggleIcon = document.querySelector('.toggle-password');
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = "password";
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-
-        function checkInputValue() {
-            var passwordInput = document.getElementById('key');
-            var formGroup = document.querySelector('.form-group-key');
-            var toggleIcon = document.querySelector('.toggle-password');
-
-            if (passwordInput.value) {
-                formGroup.classList.add('has-text');
-                toggleIcon.style.left = '50%'; // обновляет положение иконки
-            } else {
-                formGroup.classList.remove('has-text');
-                toggleIcon.style.left = '30%'; // возвращает иконку на исходное положение
-            }
-        }
-
-        // Call checkInputValue on every input event
-        document.getElementById('key').addEventListener('input', checkInputValue);
-    </script>
+    <script src="actionLogic/KeyLogic.js"></script>
     <script src="actionLogic/clipboard.js"></script>
     <script src="Crypt-js/encryptionForm.js"></script>
     <script src="Crypt-js/decryptionForm.js"></script>

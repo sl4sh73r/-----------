@@ -22,6 +22,10 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
     var formGroupSelects = document.querySelectorAll('.form-group-select');
     formGroupSelects.forEach(formGroupSelect => formGroupSelect.classList.toggle('dark-theme'));
 
+     // Добавление переключения темы для .form-control-text
+     var formControlTexts = document.querySelectorAll('.form-control-text');
+     formControlTexts.forEach(formControlText => formControlText.classList.toggle('dark-theme'));
+
     // Переключение иконки
     var themeIcon = document.getElementById('theme-icon');
     if (themeIcon.classList.contains('fa-sun')) {

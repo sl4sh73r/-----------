@@ -1,0 +1,40 @@
+.download-button.light-theme {
+    background-image: linear-gradient(90deg, #dfebef, #ADD8E6, #e87df0, #e5bae8, #eaeaea);
+    color: #000;
+    /* Черный цвет текста для светлой темы */
+}
+
+/* Стили для светлой темы */
+.theme_switch.light-theme {
+    background-image: linear-gradient(90deg, #3e56a7, #04acff, #35a1e0, #3e56a7, #14accc);
+    color: #000;
+    /* Черный цвет текста для светлой темы */
+}
+
+.header1 { /* для светлой темы */
+    padding-right: 50%;
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.75rem;
+    line-height: 1.2;
+    cursor: default;
+    background: linear-gradient(270deg, #e87df0, #e87df0, #e87df0);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6;
+    animation: lightning 1s linear infinite;
+    -webkit-text-stroke: 1px black;
+    /* Тонкая черная обводка */
+  }
+  
+  @keyframes lightning {
+    0%, 100% {
+      text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6, 0 0 15px #ADD8E6, 0 0 20px #ADD8E6;
+    }
+  
+    50% {
+      text-shadow: 0 0 10px #ADD8E6, 0 0 20px #ADD8E6, 0 0 30px #ADD8E6, 0 0 40px #ADD8E6;
+    }
+  }
