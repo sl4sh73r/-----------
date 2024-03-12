@@ -1,0 +1,126 @@
+
+/* TODO::Сделать адаптивный скелинг для телефонов и прочей фигни */
+
+/* Стили для iPhone (портрет и ландшафт) ----------- */
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px) {
+    body {
+        min-height: 100vh;
+        background: rgb(178, 63, 255);
+        background: linear-gradient(135deg, rgba(178, 63, 255, 1) 0%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 75%, rgba(66, 255, 234, 1) 100%);
+    }
+
+    .sphereCanvas { 
+        --renderer-width: 150;
+        --renderer-height: 150;
+    }
+
+    .header1{
+        font-size: 1.5rem;
+    }
+    .container_1, .container_2 {
+        width: 90%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-control-select {
+        width: 100% !important;
+        padding: 5px !important;
+        font-size: 6px !important; /* уменьшенный размер шрифта */
+    }
+
+    .form-group-select {
+        position: relative;
+        width: 60% !important;
+        /* остальные стили */
+    }
+    
+    .form-control-text {
+        width: 60%;
+        height: 20%;
+        padding: 5px;
+        /* добавляет отступ внутри textarea */
+        font-size: 11px;
+        /* устанавливает размер шрифта */
+      }
+
+    .encryption-result, .decryption-result {
+        width: 50%;
+        height: auto;
+        resize: none;
+        overflow: auto;
+        border-radius: 5px;
+        padding: 0px;
+        font-size: 11px;
+        border: none; /* изменено */
+    }
+    .copy-btn {
+        font-size: 0.8em;
+        z-index: 100;
+        cursor: pointer;
+        font-weight: 100;
+        border: none;
+        background: none;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 25px; /* изменено */
+        height: 25px; /* изменено */
+    }
+
+    .copy-btn .icon {
+        width: 15px; /* добавлено */
+        height: 15px; /* добавлено */
+    }
+    
+    
+    .form-group-key .form-control, .form-group-select {
+        width: 100%;
+        transition: box-shadow 0.3s ease;
+        border: none;
+        box-sizing: border-box;
+        background: transparent;
+    }
+
+    
+}
+
+@media (max-width: 768px) {
+    .container_1, .container_2 {
+        width: 90%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* .form-group-select, .form-group-key {
+        width: 100%;
+    } */
+}
+
+/* Стили для Android (портрет и ландшафт) ----------- */
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px) 
+and (-webkit-min-device-pixel-ratio: 1.5) {
+    body {
+        min-height: 100vh;
+        background: rgb(178, 63, 255);
+        background: linear-gradient(135deg, rgba(178, 63, 255, 1) 0%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 75%, rgba(66, 255, 234, 1) 100%);
+    }
+
+    .container_1, .container_2 {
+        width: 90%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group-select, .form-group-key {
+        width: 100%;
+    }
+}
