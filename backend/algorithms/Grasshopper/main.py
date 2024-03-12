@@ -2,13 +2,8 @@ import binascii
 
 # Функция XOR для двух строк
 def xor_func (input1AsString, input2AsString, in_code = 16):
-    try:
-        input1AsInteger = int(input1AsString, in_code)
-        input2AsInteger = int(input2AsString, in_code)
-    except ValueError as e:
-        print("Error: Invalid input for XOR operation.", str(e))
-        return None
-
+    input1AsInteger = int(input1AsString, in_code)
+    input2AsInteger = int(input2AsString, in_code)
     result = input1AsInteger ^ input2AsInteger
     resultAsHex = hex(result)
     resultAsHex = resultAsHex.upper()
@@ -17,45 +12,33 @@ def xor_func (input1AsString, input2AsString, in_code = 16):
         for i in range(len(input1AsString) - len(resultAsHex)):
             resultAsHex = '0' + resultAsHex
     return resultAsHex
+# Пример:
+# xor_func('101', '10', in_code = 2)
 
 # Функция перевода между системами счисления
 def convert_base(num, to_base = 10, from_base = 10):
-    try:
-        if isinstance(num, str):
-            n = int(num, from_base)
-        else:
-            n = int(num)
-    except ValueError as e:
-        print("Error: Invalid input for base conversion.", str(e))
-        return None
-
+    # Преобразование в десятичное число
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    # Преобразование десятичного числа в необходимую систему счисления
     alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if n < to_base:
         return alphabet[n]
     else:
         return convert_base(n // to_base, to_base) + alphabet[n % to_base]
+# Пример:
+# convert_base('AC', from_base=16)
 
 # Ряд Галуа
-try:
-    galua_coef = [148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148, 1]
-    galua_coef_reverse = [1, 148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148]
-except Exception as e:
-    print("Error: Failed to initialize Galua coefficients.", str(e))
-
+galua_coef = [148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148, 1]
+galua_coef_reverse = [1, 148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148]
 # Таблица степеней двойки
-try:
-    galua_fields = [1, 2, 4, 8, 16, 32, 64, 128, 195, 69, 138, 215, 109, 218, 119, 238, 31, 62, 124, 248, 51, 102, 204, 91, 182, 175, 157, 249, 49, 98, 196, 75, 150, 239, 29, 58, 116, 232, 19, 38, 76, 152, 243, 37, 74, 148, 235, 21, 42, 84, 168, 147, 229, 9, 18, 36, 72, 144, 227, 5, 10, 20, 40, 80, 160, 131, 197, 73, 146, 231, 13, 26, 52, 104, 208, 99, 198, 79, 158, 255, 61, 122, 244, 43, 86, 172, 155, 245, 41, 82, 164, 139, 213, 105, 210, 103, 206, 95, 190, 191, 189, 185, 177, 161, 129, 193, 65, 130, 199, 77, 154, 247, 45, 90, 180, 171, 149, 233, 17, 34, 68, 136, 211, 101, 202, 87, 174, 159, 253, 57, 114, 228, 11, 22, 44, 88, 176, 163, 133, 201, 81, 162, 135, 205, 89, 178, 167, 141, 217, 113, 226, 7, 14, 28, 56, 112, 224, 3, 6, 12, 24, 48, 96, 192, 67, 134, 207, 93, 186, 183, 173, 153, 241, 33, 66, 132, 203, 85, 170, 151, 237, 25, 50, 100, 200, 83, 166, 143, 221, 121, 242, 39, 78, 156, 251, 53, 106, 212, 107, 214, 111, 222, 127, 254, 63, 126, 252, 59, 118, 236, 27, 54, 108, 216, 115, 230, 15, 30, 60, 120, 240, 35, 70, 140, 219, 117, 234, 23, 46, 92, 184, 179, 165, 137, 209, 97, 194, 71, 142, 223, 125, 250, 55, 110, 220, 123, 246, 47, 94, 188, 187, 181, 169, 145, 225, 1]
-except Exception as e:
-    print("Error: Failed to initialize Galua fields.", str(e)) 
+galua_fields = [1, 2, 4, 8, 16, 32, 64, 128, 195, 69, 138, 215, 109, 218, 119, 238, 31, 62, 124, 248, 51, 102, 204, 91, 182, 175, 157, 249, 49, 98, 196, 75, 150, 239, 29, 58, 116, 232, 19, 38, 76, 152, 243, 37, 74, 148, 235, 21, 42, 84, 168, 147, 229, 9, 18, 36, 72, 144, 227, 5, 10, 20, 40, 80, 160, 131, 197, 73, 146, 231, 13, 26, 52, 104, 208, 99, 198, 79, 158, 255, 61, 122, 244, 43, 86, 172, 155, 245, 41, 82, 164, 139, 213, 105, 210, 103, 206, 95, 190, 191, 189, 185, 177, 161, 129, 193, 65, 130, 199, 77, 154, 247, 45, 90, 180, 171, 149, 233, 17, 34, 68, 136, 211, 101, 202, 87, 174, 159, 253, 57, 114, 228, 11, 22, 44, 88, 176, 163, 133, 201, 81, 162, 135, 205, 89, 178, 167, 141, 217, 113, 226, 7, 14, 28, 56, 112, 224, 3, 6, 12, 24, 48, 96, 192, 67, 134, 207, 93, 186, 183, 173, 153, 241, 33, 66, 132, 203, 85, 170, 151, 237, 25, 50, 100, 200, 83, 166, 143, 221, 121, 242, 39, 78, 156, 251, 53, 106, 212, 107, 214, 111, 222, 127, 254, 63, 126, 252, 59, 118, 236, 27, 54, 108, 216, 115, 230, 15, 30, 60, 120, 240, 35, 70, 140, 219, 117, 234, 23, 46, 92, 184, 179, 165, 137, 209, 97, 194, 71, 142, 223, 125, 250, 55, 110, 220, 123, 246, 47, 94, 188, 187, 181, 169, 145, 225, 1]
 
 # Линейное преобразование для блока длины 32
 def linear_transformation(num, move = 'straight'):
-    if not isinstance(num, str):
-        raise ValueError("num должен быть строкой")
-    if move not in ['straight', 'reverse']:
-        raise ValueError("move должен быть 'straight' или 'reverse'")
-    if len(num) != 32:
-        raise ValueError("num должен быть длиной 32 символа")
     # Подставляемое число, если число, образованное 2-мя подряд идущими цифрами в 16-ой системе счисления, равно 0
     numIfNull = 257
 
@@ -116,13 +99,6 @@ nonlinear_coef_reverse = [165, 45, 50, 143, 14, 48, 56, 192, 84, 230, 158, 57, 8
 
 # Нелинейное преобразование (шифр простой замены)
 def nonlinear_transformation(num, move = 'straight'):
-    if not isinstance(num, str):
-        raise ValueError("num должен быть строкой")
-    if move not in ['straight', 'reverse']:
-        raise ValueError("move должен быть 'straight' или 'reverse'")
-    if len(num) != 32:
-        raise ValueError("num должен быть длиной 32 символа")
-
     for i in range(16):
         # Выбор таблицы для хода
         if move == 'reverse':
@@ -141,13 +117,16 @@ def nonlinear_transformation(num, move = 'straight'):
         # Возврат числа
         num = num[: i * 2] + num_for_replace + num[i * 2 + 2:]
     return num
-
 # Пример:
 # nonlinear_transformation('76F2D199239F365D479495A0C9DC3BE6', move = 'reverse')
+
 
 X = xor_func # операция XOR
 S = nonlinear_transformation # нелинейное преобразование в режиме простой замены
 L = linear_transformation # линейное преобразование
+
+# Ключ шифрования должен быть задан в 16-ричной системе счисления
+# key = '7766554433221100FFEEDDCCBBAA9988EFCDAB89674523011032547698BADCFE'
 
 # turn text from utf8 to hex
 def utf8ToHex(text):
@@ -160,8 +139,6 @@ def utf8ToHex(text):
     return text
 
 def transformKey(key):
-    if not isinstance(key, str):
-        raise ValueError("key должен быть строкой")
     key = binascii.hexlify(key.encode('utf8')).decode('utf8')
     count = 64 - len(key) % 64
     while len(key) < 64:
@@ -170,16 +147,13 @@ def transformKey(key):
 
 # turn text from hex to utf8
 def hexToUtf8(text):
-    if not isinstance(text, str):
-        raise ValueError("text должен быть строкой")
     try:
         text = binascii.unhexlify(text).decode('utf8')
     except:
-        raise ValueError("text должен быть валидной 16-ричной строкой")
+        pass
     return text
+
 def getKeys(key):
-    if not isinstance(key, str):
-        raise ValueError("key должен быть строкой")
     key = transformKey(key)
 
     C = [] # константы
@@ -210,10 +184,6 @@ def getKeys(key):
 
 # Расшифровка текста
 def encrypt(text, K):
-    if not isinstance(text, str):
-        raise ValueError("text должен быть строкой")
-    if not isinstance(K, list):
-        raise ValueError("K должен быть списком")
     text = utf8ToHex(text)
 
     count = 32 - len(text) % 32
@@ -236,10 +206,7 @@ def encrypt(text, K):
 
 # Шифрование текста
 def decrypt(text, K):
-    if not isinstance(text, str):
-        raise ValueError("text должен быть строкой")
-    if not isinstance(K, list):
-        raise ValueError("K должен быть списком")
+
     textArray = []
     for i in range(int(len(text) / 32)):
         textArray.append(text[i * 32 : i * 32 + 32])
