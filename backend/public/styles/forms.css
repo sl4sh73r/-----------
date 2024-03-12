@@ -1,258 +1,258 @@
 .form-group-select {
-    position: relative;
-    width: 50%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
-  
-  .form-control-select {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 25px;
-    border: 2px solid #ccc;
-    transition: border-color 0.3s ease;
-    color: #007BFF;
-    font-size: 16px;
-    appearance: none;
-    background: #fff;
-  }
-  
-  .form-control-select:focus {
-    outline: none;
-    border-color: #007BFF;
-  }
-  
-  .form-control-select:hover {
-    border-color: #007BFF;
-  }
-  
-  .form-control-icon-select {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    color: #007BFF;
-    transform: translateY(-50%);
-    transition: transform 0.3s ease;
-  }
-  
-  
-  .form-control-text {
-    width: 85%;
-    /* делает текстовое поле шире */
-    resize: none;
-    /* запрещает изменение размера */
-    overflow: auto;
-    /* добавляет полосы прокрутки, если текст выходит за границы textarea */
-    border-radius: 5px;
-    /* скругляет углы */
-    padding: 25px;
-    /* добавляет отступ внутри textarea */
-    font-size: 16px;
-    /* устанавливает размер шрифта */
-    border: 1px solid #ccc;
-    /* добавляет границу */
-  }
-  
-  .form-group-key {
-    position: relative;
-    /* позволяет позиционировать псевдоэлементы относительно этого элемента */
-  }
-  
-  .form-group-key .form-control:focus {
-    outline: none;
-    box-shadow: none;
-    background: transparent;
-    /* делает фон прозрачным */
-  }
-  
-  .form-group-key .form-control {
-    width: 50%;
-    /* делает текстовое поле короче */
-    transition: box-shadow 0.3s ease;
-    /* добавляет анимацию к тени */
-    border: none;
-    /* убирает рамку */
-    box-sizing: border-box;
-    /* учитывает границы и отступы в размерах поля ввода */
-    background: transparent;
-    /* делает фон прозрачным */
-  }
-  
-  .form-group-key::after {
-    content: "";
-    /* необходимо для отображения псевдоэлемента */
-    position: absolute;
-    /* позволяет позиционировать псевдоэлемент */
-    bottom: -2px;
-    /* сдвигает полосу немного вниз */
-    width: 30%;
-    /* делает полосу короче */
-    height: 1px;
-    /* устанавливает толщину полосы */
-    background: #ccc;
-    /* делает полосу черной */
-    transition: width 0.3s ease, background 0.3s ease, left 0.3s ease;
-    /* добавляет анимацию к ширине, цвету полосы и положению слева */
-  }
-  
-  
-  .form-group-key:focus-within::after {
-    width: 50%;
-    /* увеличивает ширину полосы при фокусе на поле ввода */
-    left: 0;
-    /* перемещает полосу влево при фокусе на поле ввода */
-    background: #007BFF;
-    /* делает полосу синей при фокусе на поле ввода */
-  }
-  
-  .form-group-key.has-text::after {
-    width: 50%;
-    /* сохраняет длину полосы, если в поле ввода есть текст */
-    background: #007BFF;
-    /* делает полосу синей, если в поле ввода есть текст */
-  }
-  
-  .form-group-key:focus-within .toggle-password {
-    left: 50%;
-    /* сдвигает иконку влево на 50% ширины .form-group-key при фокусе на поле ввода */
-  }
-  
-  .form-group-key:focus, .form-group-key:focus-within, .form-group-key .form-control:focus {
-    outline: none;
-  }
+  position: relative;
+  width: 50%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
 
-  .toggle-password {
-    position: absolute;
-    left: 30%;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    transition: right 0.3s ease;
-    /* добавляет анимацию к положению справа */
-  }
+.form-control-select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  border: 2px solid #ccc;
+  transition: border-color 0.3s ease;
+  color: #007BFF;
+  font-size: 16px;
+  appearance: none;
+  background: #fff;
+}
+
+.form-control-select:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+.form-control-select:hover {
+  border-color: #007BFF;
+}
+
+.form-control-icon-select {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  color: #007BFF;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+
+.form-control-text {
+  width: 85%;
+  /* делает текстовое поле шире */
+  resize: none;
+  /* запрещает изменение размера */
+  overflow: auto;
+  /* добавляет полосы прокрутки, если текст выходит за границы textarea */
+  border-radius: 5px;
+  /* скругляет углы */
+  padding: 25px;
+  /* добавляет отступ внутри textarea */
+  font-size: 16px;
+  /* устанавливает размер шрифта */
+  border: 1px solid #ccc;
+  /* добавляет границу */
+}
+
+.form-group-key {
+  position: relative;
+  /* позволяет позиционировать псевдоэлементы относительно этого элемента */
+}
+
+.form-group-key .form-control:focus {
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  /* делает фон прозрачным */
+}
+
+.form-group-key .form-control {
+  width: 50%;
+  /* делает текстовое поле короче */
+  transition: box-shadow 0.3s ease;
+  /* добавляет анимацию к тени */
+  border: none;
+  /* убирает рамку */
+  box-sizing: border-box;
+  /* учитывает границы и отступы в размерах поля ввода */
+  background: transparent;
+  /* делает фон прозрачным */
+}
+
+.form-group-key::after {
+  content: "";
+  /* необходимо для отображения псевдоэлемента */
+  position: absolute;
+  /* позволяет позиционировать псевдоэлемент */
+  bottom: -2px;
+  /* сдвигает полосу немного вниз */
+  width: 30%;
+  /* делает полосу короче */
+  height: 1px;
+  /* устанавливает толщину полосы */
+  background: #ccc;
+  /* делает полосу черной */
+  transition: width 0.3s ease, background 0.3s ease, left 0.3s ease;
+  /* добавляет анимацию к ширине, цвету полосы и положению слева */
+}
+
+
+.form-group-key:focus-within::after {
+  width: 50%;
+  /* увеличивает ширину полосы при фокусе на поле ввода */
+  left: 0;
+  /* перемещает полосу влево при фокусе на поле ввода */
+  background: #007BFF;
+  /* делает полосу синей при фокусе на поле ввода */
+}
+
+.form-group-key.has-text::after {
+  width: 50%;
+  /* сохраняет длину полосы, если в поле ввода есть текст */
+  background: #007BFF;
+  /* делает полосу синей, если в поле ввода есть текст */
+}
+
+.form-group-key:focus-within .toggle-password {
+  left: 50%;
+  /* сдвигает иконку влево на 50% ширины .form-group-key при фокусе на поле ввода */
+}
+
+.form-group-key:focus, .form-group-key:focus-within, .form-group-key .form-control:focus {
+  outline: none;
+}
+
+.toggle-password {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: right 0.3s ease;
+  /* добавляет анимацию к положению справа */
+}
 
 .encryption-result-text, .decryption-result-text {
-    color: #333;
-    word-wrap: break-word;
-    max-height: 100px;
-    overflow: auto;
-    padding: 10px;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  word-wrap: break-word;
+  max-height: 100px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .upload-container {
-    margin-top: 20px;
-    position: relative;
+  margin-top: 20px;
+  position: relative;
 }
 
 .upload-controls {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .drop-zone {
-    border: 2px solid #bbb;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgb(0, 0, 255);
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-    outline: none;
+  border: 2px solid #bbb;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgb(0, 0, 255);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  outline: none;
 }
 
 .drop-zone.uploading {
-    box-shadow: 0 0 10px rgb(0, 0, 255);
+  box-shadow: 0 0 10px rgb(0, 0, 255);
 }
 
 .drop-zone.done {
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
 }
 
 .drop-zone.error {
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
 }
 
 .upload-input {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .upload-label {
-    padding: 10px;
-    cursor: pointer;
-    opacity: 0.5;
+  padding: 10px;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .upload-label:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .upload-label i {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .file-info {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .copy-btn {
-    font-size: 0.8em;
-    z-index: 100;
-    cursor: pointer;
-    font-weight: 100;
-    border: none;
-    background: none;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 35px;
-    height: 35px;
+  font-size: 0.8em;
+  z-index: 100;
+  cursor: pointer;
+  font-weight: 100;
+  border: none;
+  background: none;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
 }
 
 .encrypt_button, .decrypt_button {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    border-radius: 8px;
-    margin-top: 10px;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .download-button {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    border-radius: 8px;
-    margin-top: 10px;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .download-button i {
-  /*  */
+/*  */
 }
 button.theme_switch:hover {
-    animation: none;
+  animation: none;
 }
