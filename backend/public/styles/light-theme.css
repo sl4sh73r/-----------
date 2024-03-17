@@ -12,19 +12,18 @@
 }
 
 .header1 { /* для светлой темы */
-    padding-right: 50%;
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 2.75rem;
     line-height: 1.2;
     cursor: default;
-    background: linear-gradient(270deg, #e87df0, #e87df0, #e87df0);
+    color: rgb(24, 24, 24);
     background-size: 200% 200%;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6;
-    animation: lightning 1s linear infinite;
+    /* -webkit-text-fill-color: transparent; */
+    /* text-shadow: 0 0 5px #ADD8E6, 0 0 10px #ADD8E6; */
+    /* animation: lightning 1s linear infinite; */
     -webkit-text-stroke: 1px black;
     /* Тонкая черная обводка */
   }

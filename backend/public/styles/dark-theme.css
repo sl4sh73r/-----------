@@ -9,7 +9,13 @@ body.dark-theme {
   accent-color: #ff0d00;
   min-height: 100vh;
   background: rgb(202, 55, 86);
-  background: linear-gradient(135deg, rgba(202, 55, 86,1) 0%, rgba(10, 10, 12,1) 25%, rgba(10, 10, 12,1) 75%, rgba(247, 218, 223,1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgb(250, 139, 157) 0%,
+    rgb(27, 27, 27) 25%,
+    rgb(24, 24, 24) 75%,
+    rgb(250, 139, 157) 100%
+  );
 }
 
 body.dark-theme #theme-icon {
@@ -18,7 +24,6 @@ body.dark-theme #theme-icon {
 }
 
 .sphereCanvas.dark-theme {
-
   --sphere-color1: #ff3f3f;
   --sphere-color2: #200101;
   --ring-color: rgb(192, 180, 180);
@@ -68,33 +73,33 @@ body.dark-theme #theme-icon {
   background: #f00; /* делает удлиняющуюся полосу красной, если в поле ввода есть текст */
 }
 
-
-
 .header1.dark-theme {
   /* padding-right: 50%; */
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 2.75rem;
   line-height: 1.2;
   cursor: default;
-  background: linear-gradient(270deg, #ff3f3f, #200101, #606060, #f7dadf);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 5px #606060, 0 0 10px #606060;
-  animation: bounce 30s linear 1;
+  color: rgb(236, 236, 236);
+  /* background: linear-gradient(270deg, #ff3f3f, #200101, #606060, #f7dadf); */
+  /* background-size: 200% 200%; */
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px #606060, 0 0 10px #606060; */
+  /* animation: bounce 30s linear 1; */
   -webkit-text-stroke: 1px #200101; /* Тонкая черная обводка */
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     text-shadow: 0 0 5px #606060, 0 0 10px #606060, 0 0 15px #606060, 0 0 20px #606060;
   }
   50% {
     transform: scale(1.1);
-    text-shadow: 0 0 10px #8B0000, 0 0 20px #8B0000, 0 0 30px #8B0000, 0 0 40px #8B0000;
+    text-shadow: 0 0 10px #8b0000, 0 0 20px #8b0000, 0 0 30px #8b0000, 0 0 40px #8b0000;
   }
 }
 
@@ -110,7 +115,7 @@ body.dark-theme #theme-icon {
   background-color: #222; /* Цвет фона для темной темы */
 }
 
-.copy-btn.dark-theme{
+.copy-btn.dark-theme {
   font-size: 0.8em; /* Уменьшает размер иконки */
   z-index: 100;
   cursor: pointer;
@@ -127,7 +132,7 @@ body.dark-theme #theme-icon {
 
 /* Стили для темной темы */
 .theme_switch.dark-theme {
-  background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+  background-image: linear-gradient(90deg, #ff3f3f, #200101, #606060, #f7dadf);
   color: #fff; /* Белый цвет текста для темной темы */
 }
 
@@ -136,26 +141,31 @@ button.theme_switch.dark-theme:hover {
 }
 
 button.dark-theme {
-  background-image: linear-gradient(90deg,#ff3f3f,#200101,#606060,#f7dadf);
+  background-image: linear-gradient(135deg, #ff3f3f, #200101, #606060, #f7dadf);
   color: #ffffff;
 }
 
 button.dark-theme:hover {
   animation: animate-dark 3s ease-out infinite;
-  text-shadow:0 0 .5em rgb(0, 0, 0, 0.8);
+  text-shadow: 0 0 0.5em rgb(0, 0, 0, 0.8);
 }
 
 @keyframes animate-dark {
-  0%{
-    background-position : 0%;
-    box-shadow: 0 0 .8em #ff3f3f;
+  0% {
+    background-position: 0%;
   }
-  50%{
+  25% {
     background-position: 60%;
-    box-shadow: 0 0 .8em #200101;
   }
-  100%{
+  50% {
     background-position: 100%;
-    box-shadow: 0 0 .8em #f7dadf;
+  }
+
+  75% {
+    background-position: 60%;
+  }
+
+  100% {
+    background-position: 0%;
   }
 }

@@ -39,8 +39,8 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
 
 function toggleInputType(formType) {
     const inputType = document.getElementById(`inputType${formType.charAt(0).toUpperCase() + formType.slice(1)}`).value;
-    document.getElementById(`${formType}TextGroup`).style.display = inputType === 'text' ? 'block' : 'none';
-    document.getElementById(`${formType}FileGroup`).style.display = inputType === 'file' ? 'block' : 'none';
+    document.getElementById(`${formType}TextGroup`).style.display = inputType === 'text' ? 'flex' : 'none';
+    document.getElementById(`${formType}FileGroup`).style.display = inputType === 'file' ? 'flex' : 'none';
 }
 
 document.querySelector('.encrypt_button').addEventListener('click', function() {
