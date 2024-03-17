@@ -184,9 +184,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Создаем геометрию для колец
-  var ringGeometry1 = new THREE.TorusGeometry(2.5, 0.02, 160, 1000);
-  var ringGeometry2 = new THREE.TorusGeometry(2.75, 0.05, 160, 1000);
-
+  var ringGeometry1 = new THREE.TorusGeometry(2.35, 0.05, 160, 1000);
+  var ringGeometry2 = new THREE.TorusGeometry(2.35, 0.05, 160, 1000);
+  var ringGeometry3 = new THREE.TorusGeometry(2.35, 0.05, 160, 1000);
   // Создаем материал для колец
   var ringMaterial = new THREE.MeshBasicMaterial({
     color: config.ringcolor,
@@ -196,27 +196,37 @@ document.addEventListener("DOMContentLoaded", function () {
   // Создаем кольца
   var ring1 = new THREE.Mesh(ringGeometry1, ringMaterial);
   var ring2 = new THREE.Mesh(ringGeometry2, ringMaterial);
+  var ring3 = new THREE.Mesh(ringGeometry3, ringMaterial);
+
+  // Наклоняем кольца
+  ring1.lookAt(new THREE.Vector3(1, 0, 0));
+  ring2.lookAt(new THREE.Vector3(0, 0, 0));
+  ring3.lookAt(new THREE.Vector3(1, 1, 1));
 
   // Поворачиваем кольца, чтобы они были перпендикулярны оси Y
-  ring1.rotation.x = Math.PI / 2;
-  ring2.rotation.x = Math.PI / 2;
+  ring1.rotation.x = Math.PI/2;
+  ring2.rotation.x = Math.PI/2;
+  ring3.rotation.x = Math.PI/2;
 
   // Добавляем кольца на сцену
   scene.add(ring1);
   scene.add(ring2);
+  scene.add(ring3);
 
   // В функции анимации добавляем вращение кольцам
   function animate() {
     requestAnimationFrame(animate);
     light.position.copy(camera.position); // обновляем позицию света, чтобы она соответствовала позиции камеры
-    sphere.rotation.y += 0.001; // добавляем вращение вокруг оси Y
-    sphere.rotation.x += 0.005; // добавляем вращение вокруг оси Y
+    // добавляем вращение вокруг оси Y
+    sphere.rotation.y += 0.0005; 
+    sphere.rotation.x += 0.005; 
     glow.position.copy(sphere.position); // обновляем позицию ареолы, чтобы она соответствовала позиции сферы
     glow.material.color = computeGlowColor(sphere.rotation.y * 9); // обновляем цвет ареолы
 
     // Добавляем вращение кольцам
-    ring1.rotation.y += 0.005;
-    ring2.rotation.y += 0.0015;
+    ring1.rotation.y +=  0.0035;
+    ring2.rotation.y +=  0.0035;
+    ring3.rotation.y +=  0.0035;
 
     // Обновляем позицию частиц, чтобы они двигались от колец
     // particleSystem.children.forEach(function(particle) {

@@ -24,7 +24,7 @@ body {
     rgb(255, 199, 236) 0%,
     rgb(255, 230, 198) 25%,
     rgb(255, 230, 198) 75%,
-    rgba(66, 255, 234, 1) 100%
+    rgb(66, 255, 234) 100%
   );
 }
 
@@ -38,9 +38,9 @@ a {
 }
 
 .sphereCanvas {
-  --sphere-color1: #e87df0;
-  --sphere-color2: #add8e6;
-  --ring-color:    rgb(255, 199, 236);
+  --sphere-color1: #42ffea;
+  --sphere-color2: #ffe6c6 ;
+  --ring-color:    rgb(204, 177, 195);
   --sphere-radius: 2;
   --sphere-width-segments: 325;
   --sphere-height-segments: 325;
@@ -152,7 +152,7 @@ button {
   height: 50px;
   border-radius: 3em;
   padding: 1.2em 1em;
-  background-image: linear-gradient(135deg, #dfebef, #add8e6, #e87df0, #e5bae8, #eaeaea);
+  background-image: linear-gradient(135deg, #dfebef, #add8e6, #f5cb95, #e5bae8, #eaeaea);
   background-size: 400%;
   cursor: pointer;
   border: none;
