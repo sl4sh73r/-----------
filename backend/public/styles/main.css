@@ -1,177 +1,226 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
 
 :root {
-    background-color: #ffffff;
-    color: #000000;
-    accent-color: #007bff;
-    height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  accent-color: #007bff;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 
 body {
-    color: var(--text-color);
-    min-height: 100vh;
-    background: rgb(178, 63, 255);
-    background: linear-gradient(135deg, rgba(178, 63, 255, 1) 0%, rgba(255, 255, 255, 1) 25%, rgba(255, 255, 255, 1) 75%, rgba(66, 255, 234, 1) 100%);
+  color: var(--text-color);
+  min-height: 100vh;
+  background: rgb(178, 63, 255);
+  background: linear-gradient(
+    135deg,
+    rgb(255, 199, 236) 0%,
+    rgb(255, 230, 198) 25%,
+    rgb(255, 230, 198) 75%,
+    rgba(66, 255, 234, 1) 100%
+  );
 }
 
 a {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .header {
-    width: 100%;
-    height: 50px;
+  width: 100%;
+  height: 50px;
 }
 
 .sphereCanvas {
-    --sphere-color1: #e87df0;
-    --sphere-color2: #ADD8E6;
-    --ring-color: #ADD8E6;
-    --sphere-radius: 2;
-    --sphere-width-segments: 325;
-    --sphere-height-segments: 325;
-    --camera-position-z: 5;
-    --renderer-width: 400;
-    --renderer-height: 375;
+  --sphere-color1: #e87df0;
+  --sphere-color2: #add8e6;
+  --ring-color:    rgb(255, 199, 236);
+  --sphere-radius: 2;
+  --sphere-width-segments: 325;
+  --sphere-height-segments: 325;
+  --camera-position-z: 5;
+  --renderer-width: 400;
+  --renderer-height: 375;
 }
 
 #sphereContainer canvas {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .container_1 {
-    width: 40%;
-    margin-left: 12.5%;
+  width: 40%;
 }
 
 .container_2 {
-    width: 40%;
-    margin-left: 12.5%;
+  width: 40%;
 }
 
 .container_main {
-    margin-top: 5%;
-    display: flex;
-    margin-left: 0%;
+  margin-top: 5%;
+  display: flex;
+  margin-left: 0%;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
-.encryption-result, .decryption-result {
-    width: 85%;
-    border-radius: 5px;
-    padding: 25px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    position: relative;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace;
+.encryption-result,
+.decryption-result {
+  width: 85%;
+  border-radius: 5px;
+  padding: 25px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  position: relative;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .expand-button {
-    display: inline-block;
-    margin: 10px 0;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.1);
-    color: #333;
-    cursor: pointer;
-    font-size: 0.9em;
-    text-align: center;
-    transition: background 0.3s ease;
+  display: inline-block;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9em;
+  text-align: center;
+  transition: background 0.3s ease;
 }
 
 .expand-button:hover {
-    background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .expand-button:before,
 .expand-button:after {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .best_button {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    border-radius: 8px;
-    margin-top: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
-.button-encrypt-container, .button-decrypt-container {
-    display: flex;
-    justify-content: space-between;
+.button-encrypt-container,
+.button-decrypt-container {
+  display: flex;
+  justify-content: space-between;
 }
 /* Изменение цвета иконки и добавление тени */
 #theme-icon {
-    color: #000;
-    /* Черный цвет для светлой темы */
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    /* Тень для улучшения видимости */
+  color: #000;
+  /* Черный цвет для светлой темы */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  /* Тень для улучшения видимости */
 }
 
 /* Переопределение стилей кнопки для theme_switch */
 .theme_switch {
-    background: none !important;
-    border: none !important;
-    width: 50px;
-    /* Установите ширину кнопки */
-    height: 50px;
-    /* Установите высоту кнопки */
-    padding: 0;
-    /* Удалите отступы, чтобы иконка занимала всю область кнопки */
-    display: flex;
-    /* Используйте flexbox для центрирования иконки */
-    justify-content: center;
-    /* Центрируйте иконку по горизонтали */
-    align-items: center;
-    /* Центрируйте иконку по вертикали */
+  background: none !important;
+  border: none !important;
+  width: 50px;
+  /* Установите ширину кнопки */
+  height: 50px;
+  /* Установите высоту кнопки */
+  padding: 0;
+  /* Удалите отступы, чтобы иконка занимала всю область кнопки */
+  display: flex;
+  /* Используйте flexbox для центрирования иконки */
+  justify-content: center;
+  /* Центрируйте иконку по горизонтали */
+  align-items: center;
+  /* Центрируйте иконку по вертикали */
 }
 
 button {
-    width: 150px;
-    height: 50px;
-    border-radius: 3em;
-    padding: 1.2em 1em;
-    background-image: linear-gradient(90deg, #dfebef, #ADD8E6, #e87df0, #e5bae8, #eaeaea);
-    background-size: 400%;
-    cursor: pointer;
-    border: none;
-    color: white;
-    transition: 500ms;
-    position: relative;
+  width: 150px;
+  height: 50px;
+  border-radius: 3em;
+  padding: 1.2em 1em;
+  background-image: linear-gradient(135deg, #dfebef, #add8e6, #e87df0, #e5bae8, #eaeaea);
+  background-size: 400%;
+  cursor: pointer;
+  border: none;
+  color: white;
+  transition: 500ms;
+  position: relative;
 }
 
 button:hover {
-    animation: animate 3s ease-out infinite;
+  -webkit-animation: animate 3s ease-out infinite;
+          animation: animate 3s ease-out infinite;
 }
 
 button:hover {
-    text-shadow: 0 0 .5em rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
 }
 
 button.copy-btn:hover {
-    animation: none;
+  -webkit-animation: none;
+          animation: none;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    background-position: 0%;
+    /* box-shadow: 0 3px 1px 1px #ADD8E6; */
+  }
+
+  25% {
+    background-position: 60%;
+    /* box-shadow: 0 3px 1px 1px #cfdaff; */
+  }
+
+  50% {
+    background-position: 100%;
+    /* box-shadow: 0 3px 1px 1px #ADD8E6; */
+  }
+
+  75% {
+    background-position: 60%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
 }
 
 @keyframes animate {
-    0% {
-        background-position: 0%;
-        box-shadow: 0 0 .8em #ADD8E6;
-    }
+  0% {
+    background-position: 0%;
+    /* box-shadow: 0 3px 1px 1px #ADD8E6; */
+  }
 
-    50% {
-        background-position: 60%;
-        box-shadow: 0 0 .8em #cfdaff;
-    }
+  25% {
+    background-position: 60%;
+    /* box-shadow: 0 3px 1px 1px #cfdaff; */
+  }
 
-    100% {
-        background-position: 100%;
-        box-shadow: 0 0 .8em #ADD8E6;
-    }
+  50% {
+    background-position: 100%;
+    /* box-shadow: 0 3px 1px 1px #ADD8E6; */
+  }
+
+  75% {
+    background-position: 60%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
 }
