@@ -45,7 +45,7 @@
         <div class="container_main">
             <div class="container_1">
                 <h1 class ="header1" 
-                style="text-align: center;">Encryption</h1>
+              >Encryption</h1>
                 <form class="encryptionForm" id="encryptionForm" enctype='multipart/form-data'>
                     <!-- Input Type Selection -->
                     <div class="form-group-select">
@@ -63,7 +63,7 @@
                     </div>
 
                     <!-- File Input -->
-                    <div class="form-group upload-container" id="encryptionFileGroup" style="display: none;">
+                    <div class="upload-container" id="encryptionFileGroup" style="display: none;">
                         <div id="drop_zone" class="drop-zone">
                             Drag & Drop your file here
                             <div id="fileInfo" class="file-info"></div>
@@ -84,7 +84,7 @@
                     <!-- Algorithm Selection -->
                     <div class="form-group-select">
                         <select class="form-control form-control-select" id="algorithm" name="algorithm" onchange="toggleAlgorithm()">
-                            <option disabled selected value> -- Select Crypt algorithm-- </option>
+                            <option disabled selected value>encrypt algorithm</option>
                             <option value="blowfish">Blowfish</option>
                             <option value="Grasshopper">Grasshopper</option>
                             <option value="aes">aes</option>
@@ -112,7 +112,7 @@
             </div>
 
             <div class="container_2">
-                <h1 class="header1" style="text-align: center;">Decryption</h1>
+                <h1 class="header1" >Decryption</h1>
                 <form id="decryptionForm">
                     <!-- Input Type Selection -->
                     <div class="form-group-select">
@@ -130,7 +130,7 @@
                     </div>
 
                     <!-- File Input -->
-                    <div class="form-group upload-container" id="decryptionFileGroup" style="display: none;">
+                    <div class="upload-container" id="decryptionFileGroup" style="display: none;">
                         <div id="drop_zone_decryption" class="drop-zone">
                             Drag & Drop your file here
                             <div id="fileInfoDecryption" class="file-info"></div>
@@ -151,7 +151,7 @@
                     <!-- Algorithm Selection -->
                     <div class="form-group-select">
                         <select class="form-control form-control-select" id="decryptionalgorithm" name="decryptionalgorithm">
-                            <option disabled selected value> -- Select Derypt algorithm-- </option>
+                            <option disabled selected value> decrypt algorithm</option>
                             <option value="blowfish">Blowfish</option>
                             <option value="Grasshopper">Grasshopper</option>
                             <option value="aes">aes</option>

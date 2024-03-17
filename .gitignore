@@ -1,0 +1,3 @@
+backend/pnpm-lock.yaml
+backend/node_modules/*
+backend/dist/*
