@@ -1,4 +1,4 @@
-# My Project
+# Encrypt on python 
 
 This is my project, which provides the functionality of encrypting and decrypting files and text using various algorithms such as 3DES, AES, Blowfish, and Grasshopper.
 
@@ -68,7 +68,6 @@ The application is now available at `http://localhost:3000`.
 
 ---
 
-# 我的项目
 
 这是我的项目，它提供了使用各种算法（如3DES、AES、Blowfish和Grasshopper）加密和解密文件和文本的功能。
 
