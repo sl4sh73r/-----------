@@ -79,6 +79,7 @@
                     <div class="form-group form-group-key">
                         <input type="password" class="form-control" id="key" name="key" required placeholder="🔑" oninput="checkInputValue('key', 'icon1')">
                         <i class="toggle-password fas fa-eye" id="icon1" onclick="togglePasswordVisibility('key', 'icon1')"></i>
+                        
                     </div>
 
                     <!-- Algorithm Selection -->
@@ -88,15 +89,23 @@
                             <option value="blowfish">Blowfish</option>
                             <option value="Grasshopper">Grasshopper</option>
                             <option value="aes">aes</option>
+                            <option value="3des">3DES</option>
                             <!-- Add more options as needed -->
                         </select>
                         <i id="icon-algorithm" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
                     
                     <div class="button-encrypt-container">
-                        <button type="submit" class="encrypt_button">
-                            <i class="fas fa-lock-open"></i> <!-- Иконка открытого замка -->
-                        </button>
+                        <!-- Оборачиваем кнопки в отдельный контейнер -->
+                        <div class="button-group">
+                            <!-- Перемещаем кнопку generateKeyButton наверх -->
+                            <button type="button" id="generateKeyButton" class="encrypt_button" onclick="genKey()">
+                                <i class="fas fa-key"></i> <!-- Иконка ключа -->
+                            </button>
+                            <button type="submit" class="encrypt_button">
+                                <i class="fas fa-lock-open"></i> <!-- Иконка открытого замка -->
+                            </button>
+                        </div>
                     </div>
 
                 </form>
@@ -182,6 +191,7 @@
     <script src="actionLogic/drug-n-drop.js"></script>
     <script src="actionLogic/KeyLogic.js"></script>
     <script src="actionLogic/clipboard.js"></script>
+    <script src="actionLogic/genKey.js"></script>
     <script src="Crypt-js/encryptionForm.js"></script>
     <script src="Crypt-js/decryptionForm.js"></script>
 </body>

@@ -2,10 +2,11 @@
 @media only screen 
 and (min-device-width: 320px) 
 and (max-device-width: 480px) {
-    body {
-        min-height: 100vh;
-        padding: 0 5%; /* Добавлено: отступы по краям экрана */
-    }
+    /* body { */
+         /* min-height: 100vh; */
+        /* padding: 0 5%; */
+         /* Добавлено: отступы по краям экрана */
+    /* } */
 
     .sphereCanvas { 
         --renderer-width: 200;
@@ -14,146 +15,40 @@ and (max-device-width: 480px) {
 
     .container_main {
         margin-top: 5%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 0%;
-        width: 95%; /* Добавлено: уменьшение ширины, чтобы предотвратить выход рамки за пределы экрана */
-        margin-right: auto; /* Добавлено: автоматический отступ справа для центрирования */
-        margin-left: auto; /* Добавлено: автоматический отступ слева для центрирования */
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        width: 95%;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .container_1, .container_2 {
-        box-sizing: border-box; /* Добавлено: учет границ и отступов в общих размерах */
-        width: 100%; /* Изменено: использование всей ширины экрана */
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* Добавлено: выравнивание контента по левому краю */
+        box-sizing: border-box;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
         padding: 10px;
-        margin-bottom: 10px; /* Добавлено: отступ снизу между контейнерами */
+        margin-bottom: 10px;
     }
 
-    .header1 {
-        margin-top: 10%;
+    .upload-container {
         position: relative;
-        font-size: 2rem;
+        display: grid;
+        justify-items: center;
     }
 
-    .header1.dark-theme {
-        position: relative;
-        font-size: 2rem;
+    .form-control-select, .form-group-select, .form-control-text {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.2em; /* Увеличено для удобства нажатия пальцем */
     }
 
-    .header1.dark-theme::before {
-        background: #fff;
-    }
-
-    .form-control-select {
-        width: 100% !important;
-        padding: 10px !important;
-        font-size: 12px !important;
-    }
-
-    .form-group-select {
-        position: relative;
-        width: 85% !important; /* Изменено: использование всей ширины экрана */
-    }
-
-    .form-control-text {
-        width: 100%; /* Изменено: использование всей ширины экрана */
-        padding: 5px;
-        font-size: 11px;
-    }
-
-    .drop-zone {
-        width: 100%; /* Изменено: использование всей ширины экрана */
-        height: 30%;
-        font-size: 11px;
-        border: 2px solid #bbb;
-        border-radius: 15px;
-        box-shadow: 0 0 5px rgb(0, 0, 255);
-        padding: 0px;
-        text-align: center;
-        margin-bottom: 5px;
-        outline: none;
-    }
-
-    .upload-controls {
-        position:absolute;
-        top: 30%;
-        right: 5%; /* Изменено: уменьшен отступ справа */
-    }
-
-    .upload-label {
-        padding: 0px;
-        cursor: pointer;
-        opacity: 0.5;
-    }
-
-    .upload-label i {
-        font-size: 18px;
-    }
-
-    .encryption-result, .decryption-result {
-        width: 100%; /* Изменено: использование всей ширины экрана */
-        max-height: 50%;
-        resize: none;
-        overflow: auto;
-        border-radius: 5px;
-        padding: 0px;
-        background: none;
-    }
-
-    .encryption-result-text, .decryption-result-text {
-        color: #333;
-        font-size: 13px;
-        word-wrap: break-word;
-        max-height: 100px;
-        overflow: auto;
-        padding: 0px;
-        border-radius: 5px;
-    }
-
-    .copy-btn {
-        font-size: 0.8em;
-        z-index: 100;
-        cursor: pointer;
-        font-weight: 100;
-        border: none;
-        background: none;
-        padding: 0;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 25px;
-        height: 25px;
-    }
-
-    .copy-btn .icon {
-        width: 15px;
-        height: 15px;
-    }
-
-    .form-group-key .form-control, .form-group-select {
-        width: 85%;
-    }
-
-    .form-group-key .form-control {
-        font-size: 10px;
-    }
-
-    .encrypt_button, .decrypt_button {
+    .encrypt_button, .decrypt_button, .download-button {
         margin-top: 5px;
-        width: 30px;
-        height: 30px;
+        width: 60px; /* Увеличено для удобства нажатия пальцем */
+        height: 60px; /* Увеличено для удобства нажатия пальцем */
     }
-
-    .download-button {
-        margin-top: 5px;
-        width: 30px;
-        height: 30px;
-    }
-}
 
 /* Стили для планшетов ----------- */
 @media only screen 
