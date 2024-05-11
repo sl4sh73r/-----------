@@ -1,8 +1,6 @@
-from struct import pack
 from Crypto.Cipher import DES3
-from Crypto.Protocol.KDF import PBKDF2
 from Crypto import Random
-import base64
+import os
 import sys
 
 def pad(data):
@@ -11,48 +9,58 @@ def pad(data):
         data += b'\0'
     return data
 
-def encrypt(data, key):
-    try:
-        iv = Random.new().read(DES3.block_size)
-    except Exception as e:
-        print("Error: Failed to generate initialization vector.", str(e))
-        return None
+def encrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
+    if not out_filename:
+        out_filename = in_filename + '.enc'
 
+    bs = DES3.block_size
     try:
+        iv = Random.new().read(bs)
         cipher = DES3.new(key, DES3.MODE_CBC, iv)
     except ValueError as e:
         print("Error: Invalid key or IV.", str(e))
         return None
 
     try:
-        encrypted_data = iv + cipher.encrypt(pad(data))
-    except Exception as e:
-        print("Error: Encryption failed.", str(e))
+        filesize = os.path.getsize(in_filename)
+    except OSError as e:
+        print("Error: Failed to get file size.", str(e))
         return None
 
     try:
-        return base64.b64encode(encrypted_data)
-    except Exception as e:
-        print("Error: Failed to encode encrypted data.", str(e))
+        with open(in_filename, 'rb') as infile:
+            with open(out_filename, 'wb') as outfile:
+                outfile.write(iv)
+                outfile.write(filesize.to_bytes(8, 'big'))
+
+                while True:
+                    chunk = infile.read(chunksize)
+                    if len(chunk) == 0:
+                        break
+                    elif len(chunk) % bs != 0:
+                        chunk += b' ' * (bs - len(chunk) % bs)
+
+                    outfile.write(cipher.encrypt(pad(chunk)))
+    except IOError as e:
+        print("Error: Failed to read input file or write to output file.", str(e))
         return None
+
+    return out_filename  # возвращаем путь к зашифрованному файлу
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python encrypt.py <data> <key>")
+        print("Usage: python encrypt.py <file_path> <key>")
         sys.exit(1)
 
+    file_path = sys.argv[1]
     try:
-        ciphertext = sys.argv[1].encode()
         key = sys.argv[2].encode()
     except UnicodeEncodeError as e:
-        print("Error: Failed to encode input data or key.", str(e))
+        print("Error: Failed to encode key.", str(e))
         sys.exit(1)
 
-    encrypted_text = encrypt(ciphertext, key)
-    if encrypted_text:
-        try:
-            print(encrypted_text.decode())
-        except UnicodeDecodeError:
-            print("Error: Encrypted text could not be decoded as UTF-8.")
+    encrypted_file_path = encrypt_file(key, file_path)
+    if encrypted_file_path:
+        print(encrypted_file_path)
     else:
         print("Encryption failed.")

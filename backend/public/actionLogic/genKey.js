@@ -8,7 +8,7 @@ function genKey() {
         case 'blowfish':
             key = generateRandomString(12); // Blowfish можетать ключи от 4 до 56 символов
             break;
-        case 'Grasshopper':
+        case 'grasshopper':
             key = generateRandomString(12); // Grasshopper использует 256-битные ключи
             break;
         case 'aes':

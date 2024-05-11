@@ -1,4 +1,3 @@
-from struct import pack
 from Crypto.Cipher import DES3
 from Crypto.Protocol.KDF import PBKDF2
 from Crypto import Random
@@ -6,12 +5,20 @@ import base64
 import sys
 
 def pad(data):
-    # 3DES cipher needs multiples of 8 for the data length
+    # DES3 cipher needs multiples of 8 for the data length
     while len(data) % 8 != 0:
         data += b'\0'
     return data
 
 def encrypt(data, key):
+    if len(key) not in [16, 24]:
+        print("Error: Key must be 16 or 24 bytes long.")
+        return None
+
+    if not data:
+        print("Error: Data to encrypt cannot be empty.")
+        return None
+
     try:
         iv = Random.new().read(DES3.block_size)
     except Exception as e:

@@ -1,55 +1,53 @@
 from Crypto.Cipher import DES3
-import base64
+import os
 import sys
 
 def unpad(data):
     # Remove padding added for 3DES cipher
     while data[-1] == 0:
         data = data[:-1]
-        
     return data
 
-def decrypt(data, key):
+def decrypt_file(key, in_filename, out_filename=None, chunksize=64*1024):
+    if not out_filename:
+        out_filename = os.path.splitext(in_filename)[0]
+
+    bs = DES3.block_size
     try:
-        data = base64.b64decode(data)
-    except (TypeError, binascii.Error) as e:
-        print("Error: Invalid base64 input data.", str(e))
+        with open(in_filename, 'rb') as infile:
+            iv = infile.read(bs)
+            filesize = int.from_bytes(infile.read(8), 'big')
+            cipher = DES3.new(key, DES3.MODE_CBC, iv)
+
+            with open(out_filename, 'wb') as outfile:
+                while True:
+                    chunk = infile.read(chunksize)
+                    if len(chunk) == 0:
+                        break
+
+                    outfile.write(unpad(cipher.decrypt(chunk)))
+
+                outfile.truncate(filesize)
+    except (IOError, ValueError) as e:
+        print("Error: Failed to decrypt file.", str(e))
         return None
 
-    if len(data) < DES3.block_size:
-        print("Error: Input data is too short.")
-        return None
-
-    iv = data[:DES3.block_size]
-    data = data[DES3.block_size:]
-
-    try:
-        cipher = DES3.new(key, DES3.MODE_CBC, iv)
-    except ValueError as e:
-        print("Error: Invalid key or IV.", str(e))
-        return None
-
-    try:
-        decrypted_data = unpad(cipher.decrypt(data))
-    except ValueError as e:
-        print("Error: Decryption failed.", str(e))
-        return None
-
-    return decrypted_data
+    return out_filename  # возвращаем путь к расшифрованному файлу
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python decrypt.py <encrypted_text> <key>")
-    else:
-        encrypted_text = sys.argv[1].encode()
+        print("Usage: python decrypt.py <file_path> <key>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    try:
         key = sys.argv[2].encode()
-        
-        decrypted_text = decrypt(encrypted_text, key)
-        if decrypted_text:
-            try:
-                print(decrypted_text.decode())
-            except UnicodeDecodeError:
-                print("\nError: Decrypted text could not be decoded as UTF-8.\nDisplaying as hex:")
-                print(decrypted_text.hex())
-        else:
-            print("Decryption failed.")
+    except UnicodeEncodeError as e:
+        print("Error: Failed to encode key.", str(e))
+        sys.exit(1)
+
+    decrypted_file_path = decrypt_file(key, file_path)
+    if decrypted_file_path:
+        print(decrypted_file_path)
+    else:
+        print("Decryption failed.")

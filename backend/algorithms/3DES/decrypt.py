@@ -3,25 +3,25 @@ import base64
 import sys
 
 def unpad(data):
-    # Remove padding added for 3DES cipher
-    while data[-1] == 0:
-        data = data[:-1]
-        
-    return data
+    return data.rstrip(b'\0')
 
-def decrypt(data, key):
+def decrypt(encrypted_data, key):
+    if len(key) not in [16, 24]:
+        print("Error: Key must be 16 or 24 bytes long.")
+        return None
+
+    if not encrypted_data:
+        print("Error: Data to decrypt cannot be empty.")
+        return None
+
     try:
-        data = base64.b64decode(data)
-    except (TypeError, binascii.Error) as e:
-        print("Error: Invalid base64 input data.", str(e))
+        encrypted_data = base64.b64decode(encrypted_data)
+    except Exception as e:
+        print("Error: Failed to decode encrypted data.", str(e))
         return None
 
-    if len(data) < DES3.block_size:
-        print("Error: Input data is too short.")
-        return None
-
-    iv = data[:DES3.block_size]
-    data = data[DES3.block_size:]
+    iv = encrypted_data[:DES3.block_size]
+    encrypted_data = encrypted_data[DES3.block_size:]
 
     try:
         cipher = DES3.new(key, DES3.MODE_CBC, iv)
@@ -30,8 +30,8 @@ def decrypt(data, key):
         return None
 
     try:
-        decrypted_data = unpad(cipher.decrypt(data))
-    except ValueError as e:
+        decrypted_data = unpad(cipher.decrypt(encrypted_data))
+    except Exception as e:
         print("Error: Decryption failed.", str(e))
         return None
 
@@ -39,17 +39,21 @@ def decrypt(data, key):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python decrypt.py <encrypted_text> <key>")
-    else:
-        encrypted_text = sys.argv[1].encode()
+        print("Usage: python decrypt.py <encrypted_data> <key>")
+        sys.exit(1)
+
+    try:
+        encrypted_data = sys.argv[1].encode()
         key = sys.argv[2].encode()
-        
-        decrypted_text = decrypt(encrypted_text, key)
-        if decrypted_text:
-            try:
-                print(decrypted_text.decode())
-            except UnicodeDecodeError:
-                print("\nError: Decrypted text could not be decoded as UTF-8.\nDisplaying as hex:")
-                print(decrypted_text.hex())
-        else:
-            print("Decryption failed.")
+    except UnicodeEncodeError as e:
+        print("Error: Failed to encode input data or key.", str(e))
+        sys.exit(1)
+
+    result = decrypt(encrypted_data, key)
+    if result:
+        try:
+            print(result.decode())
+        except UnicodeDecodeError:
+            print("Error: Result could not be decoded as UTF-8.")
+    else:
+        print("Decryption failed.")
