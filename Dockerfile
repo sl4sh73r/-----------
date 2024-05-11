@@ -1,13 +1,13 @@
 # Этап 1: Сборка Python
-FROM python:latest AS python-build
+FROM python:3.8-slim-buster AS python-build
 WORKDIR /app
-RUN pwd
 
-# Установка зависимостей Python
-COPY . .
-WORKDIR /app/backend/algorithms
-# RUN ls requirements.txt
+# Копирование файла requirements.txt и установка зависимостей Python
+COPY ./backend/algorithms/requirements.txt .
 RUN pip install -r requirements.txt
+
+# Копирование остальных файлов проекта
+COPY . .
 
 # Этап 2: Сборка Node.js
 FROM node:14
@@ -17,12 +17,10 @@ WORKDIR /app
 COPY . .
 
 # Установка зависимостей Node.js
-COPY package*.json ./
-
 RUN npm install
 
-# Копирование файлов Python из предыдущего этапа
-COPY --from=python-build /app .
+# Копирование установленных Python-зависимостей из контейнера python-build
+COPY --from=python-build /usr/local /usr/local
 
 # Открытие порта 8080
 EXPOSE 8080
