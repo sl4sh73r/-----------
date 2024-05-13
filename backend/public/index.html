@@ -84,12 +84,13 @@
 
                     <!-- Algorithm Selection -->
                     <div class="form-group-select">
-                        <select class="form-control form-control-select" id="algorithm" name="algorithm" onchange="toggleAlgorithm()">
+                        <select class="form-control form-control-select" id="algorithm" name="algorithm">
                             <option disabled selected value>encrypt algorithm</option>
                             <option value="blowfish">blowfish</option>
                             <option value="grasshopper">grasshopper</option>
                             <option value="aes">aes</option>
                             <option value="3des">3des</option>
+                            <option value="cast5">cast5</option>
                             <!-- Add more options as needed -->
                         </select>
                         <i id="icon-algorithm" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
@@ -99,10 +100,10 @@
                         <!-- Оборачиваем кнопки в отдельный контейнер -->
                         <div class="button-group">
                             <!-- Перемещаем кнопку generateKeyButton наверх -->
-                            <button type="button" id="generateKeyButton" class="encrypt_button" onclick="genKey()">
+                            <button type="button" id="generateKeyButton" class="encrypt_button" onclick="genKey()" title="Сгенерировать ключ">
                                 <i class="fas fa-key"></i> <!-- Иконка ключа -->
                             </button>
-                            <button type="submit" class="encrypt_button">
+                            <button type="submit" class="encrypt_button" title="Зашифровать">
                                 <i class="fas fa-lock-open"></i> <!-- Иконка открытого замка -->
                             </button>
                         </div>
@@ -113,7 +114,7 @@
                     <div class="result_box" style="justify-content: space-between; word-wrap: break-word;">
                         <span id="encryptionResultText"></span>
                         </br>
-                        <button class="btn btn-light-primary copy-btn" id="copyEncryptionResult">
+                        <button class="btn btn-light-primary copy-btn" id="copyEncryptionResult" title="Копировать результат">
                             <i class="fas fa-copy"></i> <!-- Иконка копирования -->
                         </button>
                     </div>
@@ -165,13 +166,14 @@
                             <option value="grasshopper">grasshopper</option>
                             <option value="aes">aes</option>
                             <option value="3des">3des</option>
+                            <option value="cast5">cast5</option>
                             <!-- Add more options as needed -->
                         </select>
                         <i id="icon-algorithm" class="fas fa-chevron-down form-control-icon form-control-icon-select"></i>
                     </div>
 
                     <div class="button-decrypt-container">
-                        <button type="submit" class="decrypt_button">
+                        <button type="submit" class="decrypt_button" title="Расшифровать">
                             <i class="fas fa-lock"></i> <!-- Иконка закрытого замка -->
                         </button>
                     </div>

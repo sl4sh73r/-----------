@@ -17,6 +17,9 @@ function genKey() {
         case '3des':
             key = generateRandomString(24); // 3DES использует 168-битные ключи (24 символа)
             break;
+        case 'cast5':
+            key = generateRandomString(16); // CAST-128 может использовать ключи от 5 до 16 байт
+            break;
         default:
             alert('Please select an algorithm');
             return;
